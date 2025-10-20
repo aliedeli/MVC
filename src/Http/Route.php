@@ -63,7 +63,7 @@ class Route
         }
         if(is_array($action))
         {
-        if($method == 'get')
+        if($method == 'get' && !empty(Session::get('UserID')))
             {
              if(Screens::verification(Session::get('UserID'),$action[1]) || $action[1] == 'login')
           {
@@ -72,7 +72,10 @@ class Route
                View::makeError('404');
            }
         }else{
-             call_user_func_array([new $action[0],$action[1]], [] );
+
+            call_user_func_array([new $action[0],$action[1]], [] );
+  
+           
         }
       
             

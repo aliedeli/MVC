@@ -51,13 +51,33 @@ class Screens extends Models
 
         return false;
     }
+     public  function getRoleUpdate($UserID,$name)
+    {
+        $this->query('SELECT * FROM Role_Screene  LEFT JOIN Scrnnes  ON Role_Screene.ScrID=Scrnnes.ScrID WHERE  Scrnnes.scrnne=:name AND Role_Screene.UserID=:UserID  ');
+        $this->bind(':name',$name);
+        $this->bind(':UserID',$UserID);
+        $this->execute();
+        $view= $this->fetchAll();
+       
+        if(!empty($view) && $view[0]['Edit'] > 0)
+        {
+            return true;
+        }
 
+        return false;
+    }
 
+       public static function verificationEdit($UserID,$name)
+    {
+       $obj = new self();   // إنشاء كائن من الكلاس نفسه
+        return $obj->getRoleUpdate($UserID, $name);
+    }
     public static function verification($UserID,$name)
     {
        $obj = new self();   // إنشاء كائن من الكلاس نفسه
         return $obj->getRole($UserID, $name);
     }
+
 
     public function require()
     {

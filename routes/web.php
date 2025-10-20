@@ -16,7 +16,7 @@ Route::get('/expenses',[HomeController::class , 'expenses'],[]);
 Route::get('/printer',[HomeController::class , 'printe'],[]);
 Route::get('/employees',[HomeController::class , 'employees'],[]);
 Route::get('/safe',[HomeController::class , 'safe'],[]);
-// Route::get('/sale',function($params=['Alice', 'Hi']){
+// Route::get('/sale',function($params=['id', 'data']){
 //     return view('sale', $params);
 // });
 
@@ -32,5 +32,5 @@ Route::post('/Add/info',[HomeController::class,'info'],[]);
 Route::post('/Add/Employees',[HomeController::class,'Add_employees'],[]);
 Route::post('/scrnnes',[HomeController::class,'scrnnes'],[]);
 Route::post('/Add/Department',[HomeController::class,'Add_Department'],[]);
-Route::post('/test',[Post::class],'index',[]);
+// Route::post('/test',[Post::class],'index',[]);
 Route::post('/salf',[Post::class],'salf',[]);

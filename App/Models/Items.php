@@ -3,6 +3,8 @@ namespace App\Models;
 use PDO;
 use App\Models\Models;
 use Database\Database;
+use App\Models\Screens;
+use App\Models\Session;
 use SecTheater\Suppors\Arr;
 use MyFramework\Input\INPUT_POST;
 class Items extends Models
@@ -152,7 +154,7 @@ class Items extends Models
             {
                 $this->dele();
 
-            }elseif($this->Type == 'select')
+            }elseif($this->Type == 'select' &&  Screens::verificationEdit(Session::get('UserID'),'items') > 0)
             {
                 $this->select();
             }elseif($this->Type == 'search')
