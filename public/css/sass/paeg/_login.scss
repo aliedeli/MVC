@@ -1,0 +1,40 @@
+ .login-container {
+    width: 50%;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color:var(--primary-light) ;
+    border-radius: 15px;
+    form{
+      width: 80%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 10px;
+      .form-group{
+        width: 80%;
+        height: 20%;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        flex-direction: row;
+        label{
+          width: 30%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+        }
+        input{
+          width: 80%;
+          height: 100%;
+        }
+      }
+    }
+      
+    }

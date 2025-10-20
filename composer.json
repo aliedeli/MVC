@@ -1,0 +1,20 @@
+{
+    "name": "sectheater/php-mvc",
+    "autoload": {
+        "psr-4": {
+            "Sectheater\\PhpMvc\\": "src/",
+            "App\\":"App",
+            "SecTheater\\":"src",
+            "Database\\":"config"
+        }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.6",
+        "symfony/var-dumper": "^6.0",
+        "ext-gd": "*",
+        "setasign/fpdf": "^1.8",
+        "carlos-meneses/laravel-mpdf": "^2.1",
+        "barryvdh/laravel-dompdf": "^2.2",
+        "phpmailer/phpmailer": "^7.0"
+    }
+}

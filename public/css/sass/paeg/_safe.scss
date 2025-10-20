@@ -1,0 +1,54 @@
+   :root{ --bg:#f5f7fb; --card:#ffffff; --accent:#0f6efd; --muted:#6b7280; --danger:#ef4444; }
+   
+    body{font-family:Segoe UI, Tahoma, Arial, sans-serif;background:var(--bg);color:#0f172a}
+    .container{max-width:1100px;margin:0 auto ; position: relative;}
+    // header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    h1{margin:0;font-size:20px}
+
+
+.card{
+    position: absolute; 
+    top: 0;
+    left: 0%;
+    background:var(--card);border-radius:12px;
+    padding:18px;
+    box-shadow:0 6px 18px rgba(15,23,42,0.06);
+    visibility: hidden;
+    opacity: 0;
+    z-index: -1;
+  &.active{
+    visibility: visible;
+    opacity: 1;
+    z-index: 1;
+    border: 1px solid #0066ff;
+
+  }
+}
+
+    form.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;align-items:end}
+    label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+    input[type="text"],input[type="date"],input[type="number"],select{width:100%;padding:8px;border-radius:8px;border:1px solid #e6e9ef}
+    button.btn{background:var(--accent);color:white;padding:10px 14px;border-radius:8px;border:0;cursor:pointer}
+    button.btn.secondary{background:#6b7280}
+
+    table{width:100%;border-collapse:collapse;margin-top:16px}
+    th,td{padding:10px;border-bottom:1px solid #eef2f7;text-align:center;font-size:14px}
+    thead th{background:#f8fafc;color:#111827}
+    tbody tr:nth-child(even){background:#fbfdff}
+
+    .right{text-align:right}
+    .muted{color:var(--muted);font-size:13px}
+
+    .actions button{margin-left:6px;padding:6px 8px;border-radius:6px;border:0;cursor:pointer}
+    .actions .edit{background:#f59e0b;color:white}
+    .actions .del{background:var(--danger);color:white}
+
+    @media (max-width:900px){
+      form.grid{grid-template-columns:repeat(2,1fr)}
+      th,td{font-size:12px}
+    }
+
+    .summary{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
+    .chip{background:#fff;border-radius:10px;padding:10px 12px;box-shadow:0 2px 6px rgba(2,6,23,0.04)}
+    .chip strong{display:block;font-size:18px}
+    .note{margin-top:10px;color:var(--muted);font-size:13px}

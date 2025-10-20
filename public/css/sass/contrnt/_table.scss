@@ -1,0 +1,218 @@
+// Example SASS styles for a table
+// filepath: c:\xampp\htdocs\MVC\public\sass\content\_table.scss
+table{
+    border-collapse: collapse;
+    min-width: 400px;
+    width: 95%;
+    font-size: 0.9em;
+    color: #000;
+
+    thead{
+
+        tr{
+            background-color: #0066ff;
+            color: #ffffff;
+            text-align: left;
+            font-weight: bold;
+            height: 20px;
+
+            th{
+                 padding: 12px 15px;
+            }
+        }
+    }
+    tbody{
+        tr{
+            // height: 20px;
+
+            border-bottom:1px solid #dddddddd ;
+            &:nth-of-type(even){
+                background-color: #66a3ff21;
+            }
+            &:last-of-type{
+                  border-bottom: 1px solid #009879;
+            }
+        &:hover{
+      color: #0066ff;
+      font-weight: 400;
+        border-bottom: 1px solid #009879;
+        transform: scale(1.0);
+            }
+       
+        }
+        
+    }
+    th,td{
+         padding: 12px 15px;
+        text-align: center;
+
+        button{
+              display: inline-block;
+                font-weight: 200;
+                text-align: center;
+                white-space: nowrap;
+                vertical-align: middle;
+                user-select: none;
+                border: 1px solid transparent;
+                padding: 0.150rem 0.30rem;
+                font-size: 1rem;
+                line-height: 1.5;
+                border-radius: 0.25rem;
+                transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                cursor: pointer;
+                background-color: #009897;
+                margin-left: 2px;
+        }
+    }
+
+}
+
+ .search{
+    width: 50%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    input{
+      width: 80%;
+      height: 100%;
+      border: none;
+      border-bottom: 1px solid #0066ff ;
+      font-size: 20px;
+      font-weight: bold;
+      &:focus-visible{
+        border: none;
+         border-bottom: 1px solid #0066ff ;
+      }
+      &:focus-within{
+        border: none;
+         border-bottom: 1px solid #0066ff ;
+      }
+    }
+    .icon{
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid #003d99;
+       display: flex;
+      justify-content: center;
+      align-items: center;
+
+     
+    }
+ }
+ .flex{
+    display: flex;
+    &.center{
+    justify-content: space-between;
+    align-items: center;
+        }
+    &.row{
+        flex-direction: row;
+        }
+    &.column{
+        flex-direction: column;
+        }   
+   
+    
+    }
+    
+.row{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+.input{
+        width: 70%;
+        height: 100%;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+         .value{
+                input{
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    border-bottom: 1px solid #0066ff ;
+                    font-size: 20px;
+                    font-weight: bold;
+                    &:focus-visible{
+                        border: none;
+                        border-bottom: 1px solid #0066ff ;
+                    }
+                    &:focus-within{
+                        border: none;
+                        border-bottom: 1px solid #0066ff ;
+                    }
+                }
+            }
+    }
+.icon{
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid var(--warning);
+         display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+.name{
+        width: auto;
+        font-size: larger;
+        font-weight: bold;
+    }
+.success-message {
+      padding: 15px 20px;
+      margin: 20px auto;
+      max-width: 500px;
+      border: 1px solid #c3e6cb;
+      border-radius: 5px;
+      background-color: #d4edda;
+      color: #155724;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      position: absolute;
+      top: 31%;
+      left: 40%;
+      z-index: 5;
+    }
+
+    .success-message::before {
+      content: "✔️";
+      margin-right: 10px;
+    }
+
+    .error-message {
+      padding: 15px 20px;
+      margin: 20px auto;
+      max-width: 500px;
+      border: 1px solid #c3e6cb;
+      border-radius: 5px;
+      background-color: #d4edda;
+      color: #155724;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      position: absolute;
+      top: 31%;
+      left: 40%;
+      z-index: 5;
+    }
+
+    .error-message::before {
+      content: "X";
+      margin-right: 10px;
+      font: 1em sans-serif;
+    }
+     .title{
+        width: 100%;
+        height: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }

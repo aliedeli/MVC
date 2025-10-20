@@ -1,0 +1,4 @@
+- [x] Remove incomplete chart script from views/home.php
+- [x] Complete and fix chart initialization in public/js/info.js
+- [x] Update chart to use dynamic data from fetched counts
+- [x] Test the bar chart rendering on the home page

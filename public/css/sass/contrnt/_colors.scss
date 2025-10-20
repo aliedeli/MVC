@@ -1,0 +1,156 @@
+ // Digital Identity Color System
+// Primary Color Palette - Professional Blue Theme
+
+// Primary Colors
+$primary-50: #e6f0ff;
+$primary-100: #cce0ff;
+$primary-200: #99c2ff;
+$primary-300: #66a3ff;
+$primary-400: #3385ff;
+$primary-500: #0066ff ; // Primary Blue
+$primary-600: #0052cc;
+$primary-700: #003d99;
+$primary-800: #002966;
+$primary-900: #001433;
+
+// Secondary Colors (Complementary)
+$secondary-50: #fff5e6;
+$secondary-100: #ffebcc;
+$secondary-200: #ffd699;
+$secondary-300: #ffc266;
+$secondary-400: #ffad33;  // Orange accent
+$secondary-600: #cc7a00;
+$secondary-700: #995c00;
+$secondary-800: #663d00;
+$secondary-900: #331f00;
+
+// Neutral Colors
+$neutral-50: #f8f9fa;
+$neutral-100: #f1f3f5;
+$neutral-200: #e9ecef;
+$neutral-300: #dee2e6;
+$neutral-400: #ced4da;
+$neutral-500: #adb5bd;
+$neutral-600: #868e96;
+$neutral-700: #495057;
+$neutral-800: #343a40;
+$neutral-900: #212529;
+
+// Semantic Colors
+$success-500: #28a745;
+$warning-500: #ffc107;
+$error-500: #dc3545;
+$info-500: #17a2b8;
+
+// CSS Custom Properties for Theming
+:root {
+  --primary: #{$primary-500};
+  --primary-dark: #{$primary-700};
+  --primary-light: #{$primary-300};
+  --secondary: #{$secondary-50};
+  --neutral-light: #{$neutral-100};
+  --neutral-dark: #{$neutral-800};
+  --success: #{$success-500};
+  --warning: #{$warning-500};
+  --error: #{$error-500};
+  --info: #{$info-500};
+  --neutral-600: #{$neutral-600};
+  --neutral-5000:#{$neutral-500};
+  --transition: 180ms ease;
+   --text: #111827;
+     --bg: #ffffff;
+  --surface: #f6f7fb;
+  --text: #111827;
+  --muted: #6b7280;
+  --accent: #2563eb; /* أزرق */
+  --accent-600: #1d4ed8;
+  --error: #dc2626;
+ --cornflower-blue-50: #ffffff;
+  --cornflower-blue-100: #e4f0ff;
+  --cornflower-blue-200: #b6d4ff;
+  --cornflower-blue-300: #91c2ff;
+  --cornflower-blue-400: #8dc3ff;
+  --cornflower-blue-500: #7fc0ff;
+  --cornflower-blue-600: #6db8ff;
+  --cornflower-blue-700: #59afff;
+  --cornflower-blue-800: #4fa3fe;
+  --cornflower-blue-900: #4c96e6;
+  --cornflower-blue-1000: #4a8ed9;
+  --cornflower-blue-1100: #4686cc;
+  --cornflower-blue-1200: #417bbb;
+  --cornflower-blue-1300: #3a6faa;
+  --cornflower-blue-1400: #336397;
+  --cornflower-blue-1500: #2b5583;
+  --cornflower-blue-1600: #224770;
+  --cornflower-blue-1700: #18395c;
+  --cornflower-blue-1800: #0e2a47;
+  --cornflower-blue-1900: #091f38;
+  --radius: 10px;
+  --shadow: 0 6px 18px rgba(16,24,40,0.06);
+  --transition: 180ms ease;
+}
+
+// Color Utility Classes
+.text-primary {
+  color:var(--cornflower-blue-800)!important;
+}
+
+.bg-primary {
+  background-color: var(--cornflower-blue-800);
+}
+
+.text-secondary {
+  color: $secondary-50 ;
+}
+
+.bg-secondary {
+  background-color: $secondary-50 ;
+}
+
+// Hover states
+.hover-primary:hover {
+  color:var(--cornflower-blue-800) ;
+}
+
+.hover-bg-primary:hover {
+  background-color: var(--cornflower-blue-800);
+}
+
+// Focus states for accessibility
+.focus-primary:focus {
+  border-color: var(--cornflower-blue-800) ;
+  box-shadow: 0 0 0 0.2rem rgba(var(--cornflower-blue-800), 0.25);
+}
+
+// Semantic color utilities
+.text-success {
+  color: $success-500 !important;
+}
+
+.bg-success {
+  background-color: $success-500 !important;
+}
+
+.text-warning {
+  color: $warning-500 !important;
+}
+
+.bg-warning {
+  background-color: $warning-500 !important;
+}
+
+.text-error {
+  color: $error-500 !important;
+}
+
+.bg-error {
+  background-color: $error-500 !important;
+}
+
+.text-info {
+  color: $info-500 !important;
+}
+
+.bg-info {
+  background-color: $info-500 !important;
+}
