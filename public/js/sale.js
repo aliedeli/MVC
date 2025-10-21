@@ -861,9 +861,7 @@ class paginationViewSale
                 this.end=this.start + this.itemsPage
                 this.view()
             }
-          
-            console.log(this.currentPage,this.totalPage)
-
+           
 
             })
                this.hasPrev.addEventListener('click',()=>{
@@ -875,7 +873,7 @@ class paginationViewSale
                 this.end=this.start + this.itemsPage
                 this.view()
             }})
-
+           
     }
     view()
     {

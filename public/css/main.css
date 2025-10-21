@@ -2451,7 +2451,7 @@ body {
   position: absolute;
   width: 50%;
   height: 250px;
-  background-color: var(--primary-light);
+  background-color: var(--cornflower-blue-50);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   right: 25%;
   border-radius: 15px;
@@ -2496,7 +2496,7 @@ body {
   flex-direction: row;
 }
 .content-Employees .Employees {
-  width: 80%;
+  width: 95%;
   height: 70%;
   position: absolute;
   display: flex;
@@ -2504,8 +2504,8 @@ body {
   align-items: center;
   flex-direction: column;
   gap: 10px;
-  left: 10%;
-  background-color: var(--primary-light);
+  left: 2.5%;
+  background-color: var(--cornflower-blue-50);
   border-radius: 20px;
   padding: 0 10px;
   visibility: hidden;
@@ -2551,6 +2551,8 @@ body {
 }
 .content-Employees .Employees form .form-group .row .input .value {
   width: 50%;
+  border: 1px solid #9ca3af;
+  border-radius: 8px;
 }
 .content-Employees .Employees form .form-group .row .input .value input {
   display: block;
@@ -2560,6 +2562,7 @@ body {
   font-size: 1rem;
   color: var(--text);
   padding: 0.6rem 0.5rem;
+  border-color: #284c8a;
   border-radius: 8px;
 }
 .content-Employees .Employees form .form-group .row .input .value input:placeholder {
