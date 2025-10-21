@@ -7,6 +7,7 @@ use App\Models\Session;
     }
 
  ?>
+ 
 
 <div class="Customer-container">
  <?php  include   view_path() .'partials/cutomer.php'; ?>

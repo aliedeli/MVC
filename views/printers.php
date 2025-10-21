@@ -42,7 +42,7 @@ class pdf extends Mpdf
         parent::__construct([
         'default_font' => 'amiri',
         'mode' => 'utf-8',
-        'format' => 'A4',
+        'format' => 'A6',
         'directionality' => 'rtl'
         ]);
 
