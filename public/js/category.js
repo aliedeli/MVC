@@ -66,12 +66,13 @@ function getCategories() {
     xhr.send(data);
 
    }).then(data=>{
-    let page= new paginationViewUser()
+    let page= new paginationView()
         page.array=data
         page.body=tbody;
         page.hasNext=document.getElementById('next')
         page.hasPrev=document.getElementById('back')
         page.itemsPage=8
+        page.nameClass=new Category()
         page.displayPage()
         page.button()
 
@@ -80,7 +81,7 @@ function getCategories() {
     
 }
 
-class paginationViewUser
+class paginationView
 {
     constructor()
     {
@@ -137,7 +138,8 @@ class paginationViewUser
          this.body.innerHTML = '';
        this.array.slice(this.start,this.end).forEach((item,index )=>{
        
-            let n=   new Category(item,++index)
+            let n=  this.nameClass
+            n.input(item,++index)
             n.innerHTML()
        })
      
@@ -152,11 +154,17 @@ class paginationViewUser
 
 getCategories();
 class Category {
-    constructor(data, index) {
+    constructor() {
+        this.id ;
+        this.name ;
+        this.index ;
+       
+    }
+    input(data,index)
+    {
         this.id = data.CatID;
         this.name = data.NameCat;
         this.index = index;
-       
     }
     innerHTML(){
         let tr = document.createElement('tr');

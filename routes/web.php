@@ -15,10 +15,10 @@ Route::get('/customer',[HomeController::class , 'Cutomer'],[]);
 Route::get('/expenses',[HomeController::class , 'expenses'],[]);
 Route::get('/printer',[HomeController::class , 'printe'],[]);
 Route::get('/employees',[HomeController::class , 'employees'],[]);
-Route::get('/safe',[HomeController::class , 'safe'],[]);
-// Route::get('/sale',function($params=['id', 'data']){
-//     return view('sale', $params);
-// });
+// Route::get('/safe',[HomeController::class , 'safe'],[]);
+Route::get('/safe',function(){
+    return view('Safe');
+});
 
 Route::post('/App/expenses',[HomeController::class , 'App_expenses'],[]);
 Route::post('/App/items',[HomeController::class,'App_Items'],[]);

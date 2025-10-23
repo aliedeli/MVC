@@ -66,4 +66,4 @@ use App\Models\Session;
         </div>
     </div>
 
-   <script src="js/sale.js"></script> 
+   <script type="module" src="js/sale.js"></script> 

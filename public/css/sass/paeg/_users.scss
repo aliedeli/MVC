@@ -39,7 +39,7 @@
   border-radius: 5px;
   position: absolute;
   transform: translate(0%,-3%);
-   background-color: var(--primary-light);
+background-image:var(--primary-color) ;
   visibility: hidden;
   opacity: 0;
   z-index: -1;
@@ -214,7 +214,7 @@
   border-radius: 5px;
   position: absolute;
   transform: translate(0%,-3%);
-   background-color: var(--primary-light);
+ background-image:var(--primary-color) ;
    form{
     width: 60%;
     height: 100%;

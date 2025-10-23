@@ -26,7 +26,7 @@ class Customers extends Models
         $this->address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_SPECIAL_CHARS) ?? null;
         $this->email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL) ?? null;
         $this->phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS) ?? null;
-        $this->action = filter_input(INPUT_POST, 'type', FILTER_SANITIZE_SPECIAL_CHARS) ?? null;
+        $this->action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS) ?? null;
         $this->require();
         
     }

@@ -1,4 +1,4 @@
-
+import {primaryID,FormSubmit,paginationView}from './min.js'
 const listitem=document.querySelector('.list-items')
 const nameItem=document.getElementById('nameItem')
 const auto_ID=document.getElementById('auto-id')
@@ -17,60 +17,74 @@ const backBtn = document.getElementById('back')
 const cus_name=document.getElementById('cus-name')
 const ul_Cutomer=document.getElementById('list-Cutomer')
 const searchDate=document.getElementById('search-date')
+const search=document.getElementById('search')
 const PayMethod=document.getElementById('Pay-Method')
 const Amount=document.getElementById('Amount')
 const send=document.getElementById('send')
-
-
+const UrlSale='/Add/Sale'
+const UrlItems='/App/items'
+const UrlCutomer='/Add/Cutomer'
 
 
 searchDate.addEventListener('change',(e)=>{
+    
         if(e.target.value != '' )
         {
-        let myPromise= new Promise((r,j)=>{
-        let xhr= new XMLHttpRequest()
-          xhr.open('POST','/Add/Sale',true)
-
-           xhr.onreadystatechange=()=>
+        FormSubmit('search-date','/Add/Sale',[{searchDate:e.target.value}],'').then(data=>{
+            if(data.length == 0)
             {
-                
-                if(xhr.status == 200 && xhr.readyState == 4 )
-                {
-
-                    r(JSON.parse(xhr.response))
-                }else{
-
-                }
-
+                tbodySale.innerHTML='<tr><td colspan="5" style="text-align:center;">No data found</td></tr>'
+                return;
             }
-
-                let data= new FormData()
-                data.append('search-date',e.target.value)
-                data.append('type','search-date')
-                xhr.send(data);
-
-
-
-      })
-      myPromise.then(data=>{
-           console.log(data)
-             let test= new paginationViewSale()
+         let test= new paginationView()
             test.array=data
             test.hasNext=nextBtn
             test.hasPrev=backBtn
             test.body=tbodySale
+            test.nameClass=new Sale()
             test.button()
             test.displayPage()
 
-      })
+        })
+  
         }else{
-            // getSaleAll()
+             getSaleAll()
         }
  
 
 })
 
+search.addEventListener('input',e=>{
+  if(e.target.value != '' )
+        {
 
+    FormSubmit('search','/Add/Sale',[{search:e.target.value}],'').then(data=>{
+        if(data.length == 0)
+        {
+            tbodySale.innerHTML='<tr><td colspan="5" style="text-align:center;">No data found</td></tr>'
+            return;
+
+        }
+        let test= new paginationView()
+            test.array=data
+            test.hasNext=nextBtn
+            test.hasPrev=backBtn
+            test.body=tbodySale
+             test.nameClass=new Sale()
+            test.button()
+            test.displayPage()
+
+        
+
+    })
+  }
+        
+        else{
+             getSaleAll()
+     }
+ 
+
+})
 
 btn_add.addEventListener('click',()=>{
     box_sale.classList.add('active')
@@ -121,17 +135,9 @@ cus_name.addEventListener('click',()=>{
     
 })
 
-function  uintID(){
-    let id= new Date().getTime()
-       newid=id.toString().slice(8)
-       
-        
-    return newid
-  
 
-}
 let order={
-    OrderID:uintID(),
+    OrderID:primaryID(),
     CusID:0,
     CutName:'',
     toltal:0,
@@ -149,8 +155,8 @@ let PaymentMethod={
 
 
 send.addEventListener('click',e=>{
-    console.log(PaymentMethod)
-   formSendData('sale', '/Add/Sale',[PaymentMethod,order],'').then(data=>{
+  
+   formSendData('sale', UrlSale,[PaymentMethod,order],'').then(data=>{
         if(data.success)
         {
             getSaleAll()
@@ -178,105 +184,77 @@ PayMethod.addEventListener('change',e=>{
     PaymentMethod.MethodType=e.target.value;
     })
 
-function formSendData(action, url,arr,form)
-{
-    return new Promise((r)=>{
+// function formSendData(action, url,arr,form)
+// {
+//     return new Promise((r)=>{
 
-        let xhr=new XMLHttpRequest()
-        xhr.open('POST',url,true)
+//         let xhr=new XMLHttpRequest()
+//         xhr.open('POST',url,true)
         
-        xhr.onreadystatechange=()=>{
-              if(xhr.status == 200 && xhr.readyState == 4 ) 
-                    {
-                        console.log(xhr)
-                        r( JSON.parse(xhr.response))
-                    }else{
+//         xhr.onreadystatechange=()=>{
+//               if(xhr.status == 200 && xhr.readyState == 4 ) 
+//                     {
+//                         console.log(xhr)
+//                         r( JSON.parse(xhr.response))
+//                     }else{
                        
-                    }
-        }
+//                     }
+//         }
       
-         let dataSend = new FormData(form || undefined);
-         if(Array.isArray(arr)){
+//          let dataSend = new FormData(form || undefined);
+//          if(Array.isArray(arr)){
            
-            arr.forEach((item)=>{
-                for(let key in item){
+//             arr.forEach((item)=>{
+//                 for(let key in item){
                     
-                    dataSend.append(key,item[key]);
-                }
-            })
+//                     dataSend.append(key,item[key]);
+//                 }
+//             })
 
-        }else if(action == 'search'){
-            dataSend.append('search',arr);
-        }
+//         }else if(action == 'search'){
+//             dataSend.append('search',arr);
+//         }
 
          
-            dataSend.append('type',action);
-        xhr.send(dataSend);     
+//             dataSend.append('type',action);
+//         xhr.send(dataSend);     
 
-    })
+//     })
 
-}
+// }
 
 
 function getCutomer(e)
 {
-    let myPromise= new Promise((r,j)=>{
-        let xhr= new XMLHttpRequest()
-          xhr.open('POST','/Add/Cutomer',true)
-        
-              xhr.onreadystatechange=()=>
-              {
-             
-                    if(xhr.status == 200 && xhr.readyState == 4 ) 
-                    {
-                        r( JSON.parse(xhr.response))
-                    }else{
-
-                    }
-              }
-                let data=new FormData()
-                data.append('name',e)
-                data.append('type','search')
-                xhr.send(data);
-    }).then(data=>{
+    FormSubmit('search',UrlCutomer,[{name:e}],'').then(data=>{
+       
         ul_Cutomer.classList.add('active')
         ul_Cutomer.innerHTML=''
         data.forEach(item=>{
-         let cus= new Cutomer(item)
-        cus.innerHTML()
+            let cus= new Cutomer(item)
+                cus.innerHTML()
         }
     )
     })
+    
+  
 }
 
 function CutomerAll()
 {
-let myPromise= new Promise((r,j)=>{
-        let xhr= new XMLHttpRequest()
-          xhr.open('POST','/Add/Cutomer',true)
-          console.log(xhr)
-              xhr.onreadystatechange=()=>
-              {
-                    if(xhr.status == 200 && xhr.readyState == 4 ) 
-                    {
-                        r( JSON.parse(xhr.response))
-                    }else{
 
-                    }
-              }
-                let data=new FormData()
-
-                data.append('type','select')
-                xhr.send(data);
-    }).then(data=>{
+    FormSubmit('select',UrlCutomer,'','').then(data=>{
         ul_Cutomer.classList.add('active')
         ul_Cutomer.innerHTML=''
         data.forEach(item=>{
-        let cus= new Cutomer(item)
-        cus.innerHTML()
+            let cus= new Cutomer(item)
+                cus.innerHTML()
         }
     )
     })
+
+
+
 }
 
 class Cutomer
@@ -475,27 +453,11 @@ listitem.classList.add('active')
 
 function getitemsView(value)
 {
-        new Promise((r,j)=>{
-        let xhr=new XMLHttpRequest();
-            xhr.open('POST','/App/items')
-          
-            xhr.onreadystatechange=()=>
-            {
-                if(xhr.status == 200 && xhr.readyState == 4 )
-                {
-                  
-                    r(JSON.parse(xhr.response))
-                }else{
-                    // j('Error')
-                }
 
-            }
-            let data=new FormData()
-                data.append('search',value)
-                data.append('type','search')
-            xhr.send(data);
-    }).then((data)=>{
-      listitem.innerHTML='';
+    
+    FormSubmit('search',UrlItems,[{search:value}],'').then(data=>{
+        
+          listitem.innerHTML='';
       if(document.querySelector('[data-va]'))
       {
         document.querySelector('[data-va]').remove()
@@ -508,7 +470,8 @@ function getitemsView(value)
              
 
         });
-    })
+})
+
 }
 
 
@@ -516,23 +479,233 @@ function getitemsView(value)
 
 
 
+
+function getSale(){
+    let arr={
+        OrderID:order.OrderID
+    }
+        FormSubmit('datails',UrlSale,[arr],'').then(data=>{
+ order.toltal=0;
+        for(let i=0 ; i < data.length ; i++)
+        {
+            order.toltal+=parseFloat( data[i].toltal)   
+        }
+       
+        
+         document.getElementById('total-value').textContent= " : " + order.toltal ;
+            PaymentMethod.AmountToltal=order.toltal;
+            Amount.value=order.toltal
+            PaymentMethod.Amount=order.toltal;
+          let test= new paginationView()
+            test.array=data
+            test.hasNext=document.getElementById('next-btn')
+            test.hasPrev=document.getElementById('back-btn')
+            test.pageinfo=document.getElementById('page-info-sale')
+            test.body=order_table
+            test.nameClass=new SaleTable()
+            test.itemsPage=4    
+            test.button()
+            test.displayPage()
+})
+
+
+
+}
+function getSaleAll(){
+
+
+    FormSubmit('select',UrlSale,'','').then(data=>{
+            let test= new paginationView()
+            test.array=data
+            test.hasNext=nextBtn
+            test.hasPrev=backBtn
+            test.body=tbodySale
+            test.pageinfo=document.getElementById('page-info-sale')
+            test.nameClass=new Sale()
+
+            test.button()
+            test.displayPage()
+})
+
+
+
+}
+
+
+
+
+getSaleAll()
+
+
+
+
+
+
+
+class Sale  {
+    constructor()
+    {
+       this.ID;
+       this.CutName;
+       this.CusID;
+       this.address;
+       this.phone;
+       this.toltal;
+       this.Date;
+       this.index;
+        
+     
+
+    }
+    input(data,index)
+    {
+        this.ID=data.saleID
+       this.CutName=data.name
+       this.CusID=data.CusID
+       this.address=data.address
+       this.phone=data.phone
+       this.toltal=data.toltal;
+       this.Date=data.dateSale;
+       this.index=index
+
+    }
+
+    innerHTML()
+    {
+
+        let tr=document.createElement('tr')
+        let td_1=document.createElement('td')
+        let td_2=document.createElement('td')
+        let td_3=document.createElement('td')
+        let td_4=document.createElement('td')
+        let td_5=document.createElement('td')
+
+        td_1.textContent=this.index
+        td_2.textContent=this.Date
+        td_3.textContent=this.CutName
+        td_4.textContent=this.toltal
+
+
+       
+
+
+
+
+        let viewBtn=document.createElement('button')
+            viewBtn.type='button'
+            viewBtn.innerHTML='<i class="fa-solid fa-eye"></i> / <i class="fa-solid fa-pen-to-square"></i>';
+            viewBtn.className='btn btn-primary'
+        let btnPrinte=document.createElement('button')
+            btnPrinte.type='button'
+            btnPrinte.innerHTML='<i class="fa-solid fa-print"></i> A4'
+            btnPrinte.className='btn btn-primary'
+            viewBtn.addEventListener('click',()=>{
+                order.OrderID=this.ID
+                PaymentMethod.OrderID=this.ID
+                order.CusID=this.CusID;
+                order.CutName=this.CutName
+                cus_name.value=this.CutName
+                
+
+                auto_ID.value=this.ID;
+                getSale()
+                box_sale.classList.add('active')
+                
+     
+            })
+        let deleteBtn=document.createElement('button')
+            deleteBtn.type='button'
+            deleteBtn.innerHTML='<i class="fa-solid fa-trash"></i>';
+            deleteBtn.className='btn btn-danger'
+            deleteBtn.addEventListener('click',()=>{
+                this.dele()
+            })
+            btnPrinte.addEventListener('click',_=>{
+                window.open('/printer?id='+ this.ID  );
+            })
+
+        td_5.appendChild(btnPrinte)
+        td_5.appendChild(viewBtn)
+         td_5.appendChild(deleteBtn)
+
+
+
+
+
+        tr.appendChild(td_1)
+        tr.appendChild(td_2)
+        tr.appendChild(td_3)
+        tr.appendChild(td_4)
+        tr.appendChild(td_5)
+
+        tbodySale.appendChild(tr)
+    }
+    dele()
+    {
+            let myPromise= new Promise((r,j)=>{
+        let xhr= new XMLHttpRequest()
+          xhr.open('POST','/Add/Sale',true)
+
+           xhr.onreadystatechange=()=>
+            {
+                if(xhr.status == 200 && xhr.readyState == 4 )
+                {
+                  
+                    r(JSON.parse(xhr.response))
+                }else{
+                   
+                }
+
+            }
+            
+                let data= new FormData()
+                data.append('OrderID',this.ID)    
+                data.append('type','dele')
+                xhr.send(data);
+            
+
+         
+                
+      }).then(data=>{
+        if(data.success)
+        {
+           getSaleAll()
+        }
+
+      })
+    }
+}
+
+
 class SaleTable
 {
     constructor(data,index)
     {
-       this.ID=data.sale_detail_ID
-       this.name=data.ItemName 
-       this.itemID=data.itemID
-       this.qty=data.qty
-       this.price=data.price
+       this.ID;
+       this.name;
+       this.itemID;
+       this.qty;
+       this.price;
+       this.costPrice;
+       this.discount;
+       this.rqcode;
+        this.toltal; 
+        this.index;
+
+        
+    }
+    input(data,index)
+    {
+         this.ID=data.sale_detail_ID
+        this.name=data.ItemName 
+        this.itemID=data.itemID
+        this.qty=data.qty
+        this.price=data.price
        this.costPrice=data.costPrice
        this.discount=data.discount
        this.rqcode=data.rqcode
-     this.toltal=data.toltal
-       
-    this.index=index
-
-        
+        this.toltal=data.toltal  
+        this.index=index
     }
     innerHTML()
     {
@@ -652,372 +825,3 @@ class SaleTable
    
 
 }
-
-function getSale(){
-
-      let myPromise= new Promise((r,j)=>{
-        let xhr= new XMLHttpRequest()
-          xhr.open('POST','/Add/Sale',true)
-      
-           xhr.onreadystatechange=()=>
-            {
-               
-                if(xhr.status == 200 && xhr.readyState == 4 )
-                {
-
-                    r(JSON.parse(xhr.response))
-                }else{
-
-                }
-
-            }
-
-                let data= new FormData()
-                data.append('OrderID',order.OrderID)
-                data.append('type','datails')
-                xhr.send(data);
-
-
-
-      }).then(data=>{
-
-   
-     order.toltal=0;
-        for(let i=0 ; i < data.length ; i++)
-        {
-            order.toltal+=parseFloat( data[i].toltal)   
-        }
-       
-        
-         document.getElementById('total-value').textContent= " : " + order.toltal ;
-            PaymentMethod.AmountToltal=order.toltal;
-            Amount.value=order.toltal
-            PaymentMethod.Amount=order.toltal;
-          let test= new paginationViewSaleDatails()
-            test.array=data
-            test.hasNext=document.getElementById('next-btn')
-            test.hasPrev=document.getElementById('back-btn')
-            test.body=order_table
-            test.itemsPage=4    
-            test.button()
-            test.displayPage()
-
-      })
-
-}
-function getSaleAll(){
-
-      let myPromise= new Promise((r,j)=>{
-        let xhr= new XMLHttpRequest()
-          xhr.open('POST','/Add/Sale',true)
-
-           xhr.onreadystatechange=()=>
-            {
-                if(xhr.status == 200 && xhr.readyState == 4 )
-                {
-
-                    r(JSON.parse(xhr.response))
-                }else{
-
-                }
-
-            }
-
-                let data= new FormData()
-                data.append('type','select')
-                xhr.send(data);
-
-
-
-      }).then(data=>{
-     
-            
-
-            let test= new paginationViewSale()
-            test.array=data
-            test.hasNext=nextBtn
-            test.hasPrev=backBtn
-            test.body=tbodySale
-            test.button()
-            test.displayPage()
-            
-            
-
-            
-            //  allSales = data; // Store all sales data
-             // displayPage(currentPage); // Display the current page
-
-      })
-
-
-}
-class paginationViewSaleDatails
-{
-    constructor()
-    {
-        this.start=0
-        this.end=0
-        this.currentPage=1
-        this.totalPage=0
-        this.hasNext=null
-        this.hasPrev=null
-        this.array=[]
-        this.itemsPage=10
-        this.nameClass='';
-        this.body=null;
-        this.total=0;
-     
-        
-    }
-    displayPage()
-    {
-         this.totalPage=  Math.ceil(this.array.length / this.itemsPage)
-        this.nameClass= this.nameClass || 'Sale'
-        this.start=(this.currentPage -1) * this.itemsPage
-        this.end=this.start + this.itemsPage
-        this.view()
-    }
-    button()
-    {
-                this.hasNext.addEventListener('click',()=>{
-            if(this.hasNext && this.currentPage < this.totalPage)
-            {
-                this.currentPage++  
-                this.start=(this.currentPage -1) * this.itemsPage
-                this.end=this.start + this.itemsPage
-                this.view()
-            }
-          
-            console.log(this.currentPage,this.totalPage)
-
-
-            })
-               this.hasPrev.addEventListener('click',()=>{
-              
-            if(this.hasPrev && this.currentPage > 1)
-            {
-                this.currentPage--  
-                this.start=(this.currentPage -1) * this.itemsPage
-                this.end=this.start + this.itemsPage
-                this.view()
-            }})
-
-    }
-    view()
-    {
-        
-       
-        document.getElementById('page-info-sale').textContent=`Page ${this.currentPage}  of ${this.totalPage}`
-         this.body.innerHTML = '';
-
-       this.array.slice(this.start,this.end).forEach((item,index )=>{
-       
-            let n=   new SaleTable(item,++index)
-            n.innerHTML()
-       })
-     
-    }
-
-
-
-
-
-}
-
-
-
-class paginationViewSale
-{
-    constructor()
-    {
-        this.start=0
-        this.end=0
-        this.currentPage=1
-        this.totalPage=0
-        this.hasNext=null
-        this.hasPrev=null
-        this.array=[]
-        this.itemsPage=10
-        this.nameClass='';
-        this.body=null;
-     
-        
-    }
-    displayPage()
-    {
-         this.totalPage=  Math.ceil(this.array.length / this.itemsPage)
-        this.nameClass= this.nameClass || 'Sale'
-        this.start=(this.currentPage -1) * this.itemsPage
-        this.end=this.start + this.itemsPage
-        this.view()
-    }
-    button()
-    {
-                this.hasNext.addEventListener('click',()=>{
-            if(this.hasNext && this.currentPage < this.totalPage)
-            {
-                this.currentPage++  
-                this.start=(this.currentPage -1) * this.itemsPage
-                this.end=this.start + this.itemsPage
-                this.view()
-            }
-           
-
-            })
-               this.hasPrev.addEventListener('click',()=>{
-              
-            if(this.hasPrev && this.currentPage > 1)
-            {
-                this.currentPage--  
-                this.start=(this.currentPage -1) * this.itemsPage
-                this.end=this.start + this.itemsPage
-                this.view()
-            }})
-           
-    }
-    view()
-    {
-        document.getElementById('page-info-sale').textContent=`Page ${this.currentPage}  of ${this.totalPage}`
-         this.body.innerHTML = '';
-       this.array.slice(this.start,this.end).forEach((item,index )=>{
-       
-            let n=   new Sale(item,++index)
-            n.innerHTML()
-       })
-     
-    }
-
-
-
-
-
-}
-
-getSaleAll()
-
-
-
-
-
-
-
-class Sale  {
-    constructor(data,index)
-    {
-       this.ID=data.saleID
-       this.CutName=data.name
-       this.CusID=data.CusID
-       this.address=data.address
-       this.phone=data.phone
-       this.toltal=data.toltal;
-       this.Date=data.dateSale;
-       this.index=index
-        
-     
-    }
-    innerHTML()
-    {
-
-        let tr=document.createElement('tr')
-        let td_1=document.createElement('td')
-        let td_2=document.createElement('td')
-        let td_3=document.createElement('td')
-        let td_4=document.createElement('td')
-        let td_5=document.createElement('td')
-
-        td_1.textContent=this.index
-        td_2.textContent=this.Date
-        td_3.textContent=this.CutName
-        td_4.textContent=this.toltal
-
-
-       
-
-
-
-
-        let viewBtn=document.createElement('button')
-            viewBtn.type='button'
-            viewBtn.innerHTML='<i class="fa-solid fa-eye"></i> / <i class="fa-solid fa-pen-to-square"></i>';
-            viewBtn.className='btn btn-primary'
-        let btnPrinte=document.createElement('button')
-            btnPrinte.type='button'
-            btnPrinte.innerHTML='<i class="fa-solid fa-print"></i> A4'
-            btnPrinte.className='btn btn-primary'
-            viewBtn.addEventListener('click',()=>{
-                order.OrderID=this.ID
-                PaymentMethod.OrderID=this.ID
-                order.CusID=this.CusID;
-                order.CutName=this.CutName
-                cus_name.value=this.CutName
-                
-
-                auto_ID.value=this.ID;
-                getSale()
-                box_sale.classList.add('active')
-                
-     
-            })
-        let deleteBtn=document.createElement('button')
-            deleteBtn.type='button'
-            deleteBtn.innerHTML='<i class="fa-solid fa-trash"></i>';
-            deleteBtn.className='btn btn-danger'
-            deleteBtn.addEventListener('click',()=>{
-                this.dele()
-            })
-            btnPrinte.addEventListener('click',_=>{
-                window.open('/printer?id='+ this.ID  );
-            })
-
-        td_5.appendChild(btnPrinte)
-        td_5.appendChild(viewBtn)
-         td_5.appendChild(deleteBtn)
-
-
-
-
-
-        tr.appendChild(td_1)
-        tr.appendChild(td_2)
-        tr.appendChild(td_3)
-        tr.appendChild(td_4)
-        tr.appendChild(td_5)
-
-        tbodySale.appendChild(tr)
-    }
-    dele()
-    {
-            let myPromise= new Promise((r,j)=>{
-        let xhr= new XMLHttpRequest()
-          xhr.open('POST','/Add/Sale',true)
-
-           xhr.onreadystatechange=()=>
-            {
-                if(xhr.status == 200 && xhr.readyState == 4 )
-                {
-                  
-                    r(JSON.parse(xhr.response))
-                }else{
-                   
-                }
-
-            }
-            
-                let data= new FormData()
-                data.append('OrderID',this.ID)    
-                data.append('type','dele')
-                xhr.send(data);
-            
-
-         
-                
-      }).then(data=>{
-        if(data.success)
-        {
-           getSaleAll()
-        }
-
-      })
-    }
-}
-

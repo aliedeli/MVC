@@ -20,7 +20,7 @@
         position: absolute;
         width: 50%;
         height: 250px;
-        background-color: var(--cornflower-blue-50);
+      background-image:var(--primary-color) ;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         right: 25%;
         border-radius: 15px;
@@ -76,7 +76,7 @@
         flex-direction: column;
         gap: 10px;
         left: 2.5%;
-       background-color: var(--cornflower-blue-50);
+      background-image:var(--primary-color) ;
         border-radius: 20px;
         padding: 0 10px;
         visibility: hidden;
@@ -179,7 +179,7 @@
         flex-direction: column;
         gap: 10px;
         left: 10%;
-       background-color: var(--primary-light);
+      background-image:var(--primary-color) ;
         border-radius: 20px;
         padding: 0 10px;
         border: 1px solid #0066ff;

@@ -145,4 +145,4 @@ use App\Models\Session;
     </div>
 
 
-    <script src="js/items.js"></script>
+    <script type="module" src="js/items.js"></script>

@@ -15,6 +15,8 @@ if(isset($_GET['out']))
     <link rel="shortcut icon" href="<?=env('App_SRC_LOGO')?>" type="image/x-icon">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/all.min.css">
+    <script type="module" src="js/min.js"></script>
+    
     <title><?=env('App_NAME')?></title>
 </head>
 <body>
@@ -40,7 +42,7 @@ if(isset($_GET['out']))
          </div>
             
     </div>
-        <script src="js/min.js"></script>
+        
     <script src="js/all.min.js"></script>
     
 

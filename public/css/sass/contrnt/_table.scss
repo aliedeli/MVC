@@ -8,18 +8,29 @@ table{
     color: #000;
 
     thead{
-
+        // border-radius: 50px;
+        // position: relative;
+        // &::after{
+        //     content: '';
+        //     position: absolute;
+        //     width: 100%;
+        //     height: 100%;
+        //     z-index: -1;
+        //     border-radius: 10000px;
+        //     background-image: linear-gradient(to bottom right , #008cff,#e100ff);
+        // }
         tr{
-            background-color: #0066ff;
+           background-image: linear-gradient(to  top left , #008cff,#417bbb);
             color: #ffffff;
             text-align: left;
             font-weight: bold;
             height: 20px;
-
+       
             th{
                  padding: 12px 15px;
             }
         }
+
     }
     tbody{
         tr{

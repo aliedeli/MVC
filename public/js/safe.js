@@ -1,3 +1,6 @@
+import {
+    FormSubmit
+} from './min.js'
 const  card=document.getElementById('card')
 const  btn_card=document.getElementById('btn-card')
 const btn_close=document.getElementById('Close')
@@ -17,53 +20,53 @@ document.addEventListener('keydown',e=>{
 
 })
 
-FormSubmit('select', Url, '', '').then((data) => {
+// FormSubmit('select', Url, '', '').then((data) => {
   
     
         
-})
+// })
 
 
-function FormSubmit(action,url,data,form){
+// function FormSubmit(action,url,data,form){
     
-   return new Promise((resolve,reject)=>{
-    let xhr = new XMLHttpRequest();
-            xhr.open('POST',url,true);
+//    return new Promise((resolve,reject)=>{
+//     let xhr = new XMLHttpRequest();
+//             xhr.open('POST',url,true);
       
-        xhr.onreadystatechange=()=>{
-            if(xhr.readyState===4 && xhr.status===200){
+//         xhr.onreadystatechange=()=>{
+//             if(xhr.readyState===4 && xhr.status===200){
              
-                resolve(JSON.parse(xhr.response));
-            }else{
+//                 resolve(JSON.parse(xhr.response));
+//             }else{
                 
-            }
+//             }
 
-        }
+//         }
         
 
 
-         let dataSend = new FormData(form || undefined);
-         if(Array.isArray(data)){
+//          let dataSend = new FormData(form || undefined);
+//          if(Array.isArray(data)){
            
-            data.forEach((item)=>{
-                for(let key in item){
+//             data.forEach((item)=>{
+//                 for(let key in item){
                     
-                    dataSend.append(key,item[key]);
-                }
-            })
+//                     dataSend.append(key,item[key]);
+//                 }
+//             })
 
-        }else if(action == 'search'){
-            dataSend.append('search',data);
-        }
+//         }else if(action == 'search'){
+//             dataSend.append('search',data);
+//         }
 
          
-            dataSend.append('action',action);
-        xhr.send(dataSend);
+//             dataSend.append('action',action);
+//         xhr.send(dataSend);
 
    
-    })
+//     })
   
-}
+// }
 class Safe
 {
     constructor(data,index)

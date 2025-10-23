@@ -44,6 +44,8 @@
   --radius: 10px;
   --shadow: 0 6px 18px rgba(16,24,40,0.06);
   --transition: 180ms ease;
+  --primary-color: linear-gradient(to bottom left , #0e2a47,#3a6faa );
+  --primary-table-color: linear-gradient(to bottom right , #b6d4ff,#3a6faa );
 }
 
 .text-primary {
@@ -588,7 +590,7 @@ table {
   color: #000;
 }
 table thead tr {
-  background-color: #0066ff;
+  background-image: linear-gradient(to top left, #008cff, #417bbb);
   color: #ffffff;
   text-align: left;
   font-weight: bold;
@@ -790,7 +792,7 @@ header {
   height: 60px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  background: var(--primary-light);
+  background-image: linear-gradient(to bottom right, #0e2a47, #3a6faa);
   display: flex;
 }
 header .button {
@@ -867,7 +869,7 @@ body {
   align-items: center;
   font-family: "Cabin";
   font-weight: bold;
-  background: var(--primary-light);
+  background-image: linear-gradient(to bottom right, #0e2a47, #3a6faa);
   border-bottom-right-radius: 15px;
   border-top-right-radius: 20px;
   box-shadow: 3px 0 5px 1px rgba(0, 0, 0, 0.25), 3px 0 5px 1px rgba(0, 0, 0, 0.25);
@@ -1090,7 +1092,7 @@ body {
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  background-color: var(--cornflower-blue-1000);
+  background-image: var(--primary-color);
   gap: 10px;
   box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.25);
   clip-path: inset(0 10px 0px 10px round 15px 0);
@@ -1174,7 +1176,7 @@ body {
   text-align: center;
   top: 20px;
   left: 20px;
-  background-color: var(--cornflower-blue-1000); /* Green background */
+  background-image: var(--primary-color); /* Green background */
   color: white;
   padding: 15px;
   border-radius: 4px;
@@ -1194,7 +1196,7 @@ body {
   flex-direction: column;
   border: 1px solid #323232;
   box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.25);
-  background-color: var(--primary-light);
+  background-image: var(--primary-color);
   border-radius: 5px;
   position: absolute;
   transform: translate(10%, 15%);
@@ -1300,7 +1302,7 @@ body {
   height: 60%;
   border: 1px solid #323232;
   box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.25);
-  background-color: var(--primary-light);
+  background-image: var(--primary-color);
   border-radius: 5px;
   position: absolute;
   transform: translate(3%, 5%);
@@ -1377,7 +1379,7 @@ body {
   width: 450px;
   height: 200px;
   border-radius: 5px;
-  background-color: var(--primary-light);
+  background-image: var(--primary-color);
   border: 1px solid #0033cc;
   box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.25);
   top: 20%;
@@ -1451,7 +1453,7 @@ body {
   width: 40%;
   height: 30%;
   position: absolute;
-  background-color: var(--primary-light);
+  background-image: var(--primary-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1522,7 +1524,7 @@ body {
   border-radius: 5px;
   position: absolute;
   transform: translate(0%, -3%);
-  background-color: var(--primary-light);
+  background-image: var(--primary-color);
   visibility: hidden;
   opacity: 0;
   z-index: -1;
@@ -1683,7 +1685,7 @@ body {
   border-radius: 5px;
   position: absolute;
   transform: translate(0%, -3%);
-  background-color: var(--primary-light);
+  background-image: var(--primary-color);
 }
 .Edit-user-container form {
   width: 60%;
@@ -1768,7 +1770,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: var(--primary-light);
+  background-image: var(--primary-color);
   border-radius: 15px;
 }
 .login-container form {
@@ -1856,7 +1858,7 @@ body {
   justify-content: center;
   align-content: center;
   flex-direction: column;
-  background-color: var(--primary-light);
+  background-image: var(--primary-color);
   border-radius: 15px;
   transform: translate(1%, 2%);
   visibility: hidden;
@@ -2205,7 +2207,7 @@ body {
   position: absolute;
   top: 0;
   left: 25%;
-  background-color: var(--neutral-600);
+  background-image: var(--primary-color);
   z-index: -1;
   visibility: hidden;
   opacity: 0;
@@ -2339,7 +2341,7 @@ body {
   left: 25%;
   width: 40%;
   height: 30%;
-  background-color: var(--primary-light);
+  background-image: var(--primary-color);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15), 0 4px 20px rgba(0, 0, 0, 0.2);
   border-radius: 15px;
   visibility: hidden;
@@ -2390,7 +2392,7 @@ body {
   position: absolute;
   width: 40%;
   height: 30%;
-  background-color: var(--primary-light);
+  background-image: var(--primary-color);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15), 0 4px 20px rgba(0, 0, 0, 0.2);
   border-radius: 15px;
   top: 25%;
@@ -2451,7 +2453,7 @@ body {
   position: absolute;
   width: 50%;
   height: 250px;
-  background-color: var(--cornflower-blue-50);
+  background-image: var(--primary-color);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   right: 25%;
   border-radius: 15px;
@@ -2505,7 +2507,7 @@ body {
   flex-direction: column;
   gap: 10px;
   left: 2.5%;
-  background-color: var(--cornflower-blue-50);
+  background-image: var(--primary-color);
   border-radius: 20px;
   padding: 0 10px;
   visibility: hidden;
@@ -2601,7 +2603,7 @@ body {
   flex-direction: column;
   gap: 10px;
   left: 10%;
-  background-color: var(--primary-light);
+  background-image: var(--primary-color);
   border-radius: 20px;
   padding: 0 10px;
   border: 1px solid #0066ff;
@@ -2768,7 +2770,6 @@ th, td {
 }
 
 thead th {
-  background: #f8fafc;
   color: #111827;
 }
 

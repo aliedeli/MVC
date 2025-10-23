@@ -26,7 +26,7 @@ class Items extends Models
     public function __construct()
     {
         
-        $this->Type=$_POST['type'] ?? null;
+        $this->Type=$_POST['action'] ?? null;
       
         $this->name = filter_input(INPUT_POST,'name',FILTER_SANITIZE_SPECIAL_CHARS) ?? null  ;
         $this->barcode= filter_input(INPUT_POST,'Barcode',FILTER_SANITIZE_SPECIAL_CHARS) ?? null;

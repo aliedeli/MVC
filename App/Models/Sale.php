@@ -37,13 +37,13 @@ class Sale extends Models
         $this->data = filter_input(INPUT_POST,'data') ?? null;
         $this->search=filter_input(INPUT_POST,'search',FILTER_SANITIZE_SPECIAL_CHARS);
         $this->CutName=filter_input(INPUT_POST,'CutName',FILTER_SANITIZE_SPECIAL_CHARS);
-        $this->searchDate=filter_input(INPUT_POST,'search-date',FILTER_SANITIZE_SPECIAL_CHARS);
+        $this->searchDate=filter_input(INPUT_POST,'searchDate',FILTER_SANITIZE_SPECIAL_CHARS);
         $this->MethodType=filter_input(INPUT_POST,'MethodType',FILTER_SANITIZE_SPECIAL_CHARS);
         $this->Amount=filter_input(INPUT_POST,'Amount',FILTER_SANITIZE_NUMBER_INT);
         $this->AmountToltal=filter_input(INPUT_POST,'AmountToltal',FILTER_SANITIZE_NUMBER_INT);
 
         $this->UserName=Session::get('UserName');
-        $this->Type= $_POST['type'];
+        $this->Type= $_POST['action'];
         $this->search = '%'. $this->search .'%';
         if($this->data !=null)
         {
@@ -115,15 +115,16 @@ class Sale extends Models
     }
     private function search()
     {
-        $this->query('SELECT * FROM sale where saleID=:saleID ');
-        $this->bind(':saleID',$this->search);
+        $this->query('SELECT * FROM sale LEFT  JOIN Customers on  Customers.CusID=sale.cusID where Customers.name like :search OR  sale.saleID=:saleID ');
+        $this->bind(':saleID',$this->saleID);
+         $this->bind(':search',$this->search);
         $this->execute();
         Arr::JsonData($this->fetchAll());
     } 
 
         private function searchDate()
     {
-        $this->query('SELECT * FROM sale   LEFT  JOIN Customers on  Customers.CusID=sale.cusID where sale.dateSale=:saleID ');
+        $this->query('SELECT * FROM sale   LEFT  JOIN Customers on  Customers.CusID=sale.cusID where sale.dateSale>=:saleID ');
         $this->bind(':saleID',$this->searchDate);
         $this->execute();
         Arr::JsonData($this->fetchAll());

@@ -1,3 +1,4 @@
+import {primaryID,FormSubmit,paginationView}from './min.js'
 const newItems=document.querySelector('#newItems');
 const box_cat=document.querySelector('.box-category');
 const but_add_cat=document.getElementById('add-cat');
@@ -12,8 +13,9 @@ const Banner_form=document.getElementById('Banner_form');
 const but_items=document.getElementById('but-items')
 const box_view_items=document.getElementById('box_items') 
 const view_items_cloes=document.getElementById('view-items-cloes')
+const input_search_items=document.getElementById('search')
 
-
+const UrlItems='/App/items'
 
 but_items.addEventListener('click',()=>{
 
@@ -114,6 +116,9 @@ box_view_items.classList.remove('active')
 
 Categort_Form.addEventListener("submit",(e)=>{
     e.preventDefault()
+
+
+
     let mypromies= new Promise((r,j)=>{
         let xht=new XMLHttpRequest()
         xht.open("POST","/Add/category",true)
@@ -156,8 +161,11 @@ Banner_form.addEventListener("submit",(e)=>{
 })
 getitems('/Add/category',get_select_Cat,'CatID',"NameCat")
 getitems('/Add/banner',get_select_banner,'BannerID','BannerName')
+
+
 function getitems(url,select,id = null,name = null)
 {
+   
      new Promise((r,j)=>{
         let xhr=new XMLHttpRequest();
             xhr.open('POST',url)
@@ -188,69 +196,58 @@ function getitems(url,select,id = null,name = null)
 
 function getitemsView()
 {
-        new Promise((r,j)=>{
-        let xhr=new XMLHttpRequest();
-            xhr.open('POST','/App/items')
-          
-            xhr.onreadystatechange=()=>
-            {
-                if(xhr.status == 200 && xhr.readyState == 4 )
-                {
-                  
-                    r(JSON.parse(xhr.response))
-                }else{
-                    // j('Error')
-                }
-
-            }
-            let data=new FormData()
-                data.append('type','select')
-            xhr.send(data);
-    }).then((data)=>{
-
-            let pagin=new paginationViewItems()
-            pagin.nameClass='items'
+FormSubmit('select',UrlItems,'','').then((data)=>{
+ 
+         let pagin=new paginationView()
+            pagin.nameClass=new items()
             pagin.body=document.getElementById('items-tbody')
             pagin.array=data
             pagin.hasNext=document.getElementById('next-page-items')
             pagin.hasPrev=document.getElementById('prev-page-items')
+            pagin.pageinfo=document.getElementById('page-info-items')
             pagin.itemsPage=10
             pagin.displayPage()
             pagin.button()
+})
 
-       
-     
-      
-    })
 }
+input_search_items.addEventListener('input',(e)=>{
+    let filter=e.target.value
+        if(filter.length < 1)
+        {
+            getitemsView()
+            return;
+        }
+    FormSubmit('search',UrlItems,[{search:filter}],'').then((data)=>{
+            if(data.length < 1  )
+            {
+                document.getElementById('items-tbody').innerHTML='<tr><td colspan="6" style="text-align:center;">No items found</td></tr>'
+                return;
+            }
+         let pagin=new paginationView()
+            pagin.nameClass=new items()
+            pagin.body=document.getElementById('items-tbody')
+            pagin.array=data
+            pagin.hasNext=document.getElementById('next-page-items')
+            pagin.hasPrev=document.getElementById('prev-page-items')
+            pagin.pageinfo=document.getElementById('page-info-items')
+            pagin.itemsPage=10
+            pagin.displayPage()
+            pagin.button()
+    })
+})
 
 newItems.addEventListener("submit",(e)=>{
     e.preventDefault()
-    let mypromies= new Promise((r)=>{
-        let xht=new XMLHttpRequest()
-        xht.open("POST","/App/items",true)
-        xht.onreadystatechange=()=>{
-            console.log(xht)
-            if(xht.status ==200 && xht.readyState == 4)
-            {
-                r(JSON.parse(xht.response))
-            }else{
-                
-            }
-        }
-        let data = new FormData(newItems);
-            data.append('type','insert');
-        xht.send(data) 
-    })
-
-    mypromies.then((data)=>{
-      
-            if(data.success)
+   FormSubmit('insert',UrlItems,'',newItems).then((data)=>{
+             if(data.success)
              {
                   box_view_items.querySelectorAll('input').forEach(e=>e.value='');
                 getitemsView()
             }
- } )
+    
+    })
+   
 
 })
 
@@ -258,7 +255,19 @@ getitemsView()
 
 class items
 {
-    constructor(data,index)
+    constructor()
+    {
+        this.ID;
+        this.name;
+        this.rq;
+        this.CostPrice;
+        this.price;
+        this.discount;
+        this.count;
+        this.catID
+        this.BannerID;
+    }
+    input(data,index)
     {
         this.ID=data.itemID;
         this.name=data.NameItem;
@@ -673,72 +682,3 @@ box_banner.parentElement.appendChild(div)
 
 
 
-
-class paginationViewItems
-{
-    constructor()
-    {
-        this.start=0
-        this.end=0
-        this.currentPage=1
-        this.totalPage=0
-        this.hasNext=null
-        this.hasPrev=null
-        this.array=[]
-        this.itemsPage=10
-        this.nameClass='';
-        this.body=null;
-     
-        
-    }
-    displayPage()
-    {
-         this.totalPage=  Math.ceil(this.array.length / this.itemsPage)
-        this.nameClass= this.nameClass || 'Sale'
-        this.start=(this.currentPage -1) * this.itemsPage
-        this.end=this.start + this.itemsPage
-        this.view()
-    }
-    button()
-    {
-                this.hasNext.addEventListener('click',()=>{
-            if(this.hasNext && this.currentPage < this.totalPage)
-            {
-                this.currentPage++  
-                this.start=(this.currentPage -1) * this.itemsPage
-                this.end=this.start + this.itemsPage
-                this.view()
-            }
-          
-            console.log(this.currentPage,this.totalPage)
-
-
-            })
-               this.hasPrev.addEventListener('click',()=>{
-              
-            if(this.hasPrev && this.currentPage > 1)
-            {
-                this.currentPage--  
-                this.start=(this.currentPage -1) * this.itemsPage
-                this.end=this.start + this.itemsPage
-                this.view()
-            }})
-
-    }
-    view()
-    {
-        document.getElementById('page-info-items').textContent=`Page ${this.currentPage}  of ${this.totalPage}`
-         this.body.innerHTML = '';
-       this.array.slice(this.start,this.end).forEach((item,index )=>{
-       
-            let n=   new items(item,++index)
-            n.innerHTML()
-       })
-     
-    }
-
-
-
-
-
-}

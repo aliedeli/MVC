@@ -34,7 +34,7 @@
       </table>
   </div>
 
-  <script src="js/safe.js"></script>
+  <script type="module" src="js/safe.js"></script>
   <script>
     // بيانات العمليات مخزنة في ذاكرة الصفحة (يمكن ربطها بخادم لاحقًا)
 
