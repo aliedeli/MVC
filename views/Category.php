@@ -45,7 +45,7 @@ use App\Models\Session;
 
             back
         </button>
-         <span id="page-info-user">Page 1 of 10</span>
+         <span id="page-info-category">Page 1 of 10</span>
         <button class="btn btn-primary " type="button" id='next'>
 
             next
@@ -54,4 +54,4 @@ use App\Models\Session;
 
 </div>
 </div>
-<script src="js/category.js"></script>
+<script type="module" src="js/category.js"></script>

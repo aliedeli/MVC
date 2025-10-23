@@ -23,7 +23,7 @@ class Banner extends Models
         $this->conn= (new Database());
         $this->BannerName=filter_input(INPUT_POST,'BannerName',FILTER_SANITIZE_SPECIAL_CHARS) ?? null ;
          $this->BannerID=filter_input(INPUT_POST,'BannerID',FILTER_SANITIZE_SPECIAL_CHARS) ?? null ;
-        $this->Type=filter_input(INPUT_POST,'type',FILTER_SANITIZE_SPECIAL_CHARS) ?? null ;
+        $this->Type=filter_input(INPUT_POST,'action',FILTER_SANITIZE_SPECIAL_CHARS) ?? null ;
         
         $this->require();
 

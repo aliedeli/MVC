@@ -1,3 +1,4 @@
+import {primaryID,FormSubmit,paginationView}from './min.js'
 const boxBanner = document.querySelector('.box-Banner');
 const btnClose = document.getElementById('banner-cloes');
 const btnOpen = document.getElementById('btn-open');
@@ -28,12 +29,14 @@ FormBanner.addEventListener('submit', (e) => {
        FormSubmit('select',Url,'').then((data)=>{
    
 
-        let page= new paginationViewUser()
+        let page= new paginationView()
+        page.nameClass=new Banner()
         page.array=data;
         page.body=tableBanner;
         page.hasNext=document.getElementById('next');
         page.hasPrev=document.getElementById('back');
         page.itemsPage=8;
+        page.pageinfo=document.getElementById('page-info-banner');
         page.displayPage();
         page.button();
 
@@ -47,13 +50,16 @@ search.addEventListener('input',(e)=>{
         FormSubmit('select',Url).then((data)=>{
    
 
-        let page= new paginationViewUser()
+    let page= new paginationView()
+        page.nameClass=new Banner()
         page.array=data;
         page.body=tableBanner;
         page.hasNext=document.getElementById('next');
         page.hasPrev=document.getElementById('back');
         page.itemsPage=8;
+        page.pageinfo=document.getElementById('page-info-banner');
         page.displayPage();
+
         page.button();
 
 
@@ -61,12 +67,14 @@ search.addEventListener('input',(e)=>{
 
     }else{
         FormSubmit('search', Url, [{ BannerName: e.target.value }]).then((data)=>{
-            let page= new paginationViewUser()
+            let page= new paginationView()
+            page.nameClass=new Banner()
             page.array=data;
             page.body=tableBanner;
             page.hasNext=document.getElementById('next');
             page.hasPrev=document.getElementById('back');
             page.itemsPage=8;
+            page.pageinfo=document.getElementById('page-info-banner');
             page.displayPage();
             page.button();
         });
@@ -74,131 +82,36 @@ search.addEventListener('input',(e)=>{
 });
 
 
-function FormSubmit(type,url,data,form){
-   return new Promise((resolve,reject)=>{
-    let xhr = new XMLHttpRequest();
-            xhr.open('POST',url,true);
-        xhr.onreadystatechange=()=>{
-            if(xhr.readyState===4 && xhr.status===200){
-             
-                resolve(JSON.parse(xhr.response));
-            }else{
-                // reject('Error');
-            }
-
-        }
-        
-
-
-            let dataSend = new FormData(form || undefined);
-         if(Array.isArray(data)){
-            data.forEach((item)=>{
-                for(let key in item){
-                    dataSend.append(key,item[key]);
-                }
-            })
-
-        }
-
-        
-            dataSend.append('type',type);
-        xhr.send(dataSend);
-
-   
-    })
-  
-}
-
 
 FormSubmit('select',Url,'').then((data)=>{
    
 
-        let page= new paginationViewUser()
+        let page= new paginationView()
+        page.nameClass=new Banner()
         page.array=data;
         page.body=tableBanner;
         page.hasNext=document.getElementById('next');
         page.hasPrev=document.getElementById('back');
         page.itemsPage=8;
+        page.pageinfo=document.getElementById('page-info-banner');
         page.displayPage();
         page.button();
 
 
 });
-class paginationViewUser  
-{
-    constructor()
-    {
-        this.start=0
-        this.end=0
-        this.currentPage=1
-        this.totalPage=0
-        this.hasNext=null
-        this.hasPrev=null
-        this.array=[]
-        this.itemsPage=10
-        this.nameClass='';
-        this.body=null;
-     
-        
-    }
-    displayPage()
-    {
-         this.totalPage=  Math.ceil(this.array.length / this.itemsPage)
-        this.nameClass= this.nameClass || 'Sale'
-        this.start=(this.currentPage -1) * this.itemsPage
-        this.end=this.start + this.itemsPage
-        this.view()
-    }
-    button()
-    {
-                this.hasNext.addEventListener('click',()=>{
-            if(this.hasNext && this.currentPage < this.totalPage)
-            {
-                this.currentPage++  
-                this.start=(this.currentPage -1) * this.itemsPage
-                this.end=this.start + this.itemsPage
-                this.view()
-            }
-          
-            console.log(this.currentPage,this.totalPage)
 
-
-            })
-               this.hasPrev.addEventListener('click',()=>{
-              
-            if(this.hasPrev && this.currentPage > 1)
-            {
-                this.currentPage--  
-                this.start=(this.currentPage -1) * this.itemsPage
-                this.end=this.start + this.itemsPage
-                this.view()
-            }})
-
-    }
-    view()
-    {
-        
-        document.getElementById('page-info-user').textContent=`Page ${this.currentPage}  of ${this.totalPage}`
-         this.body.innerHTML = '';
-       this.array.slice(this.start,this.end).forEach((item,index )=>{
-       
-            let n=   new Banner(item,++index)
-            n.innerHTML()
-       })
-     
-    }
-
-
-
-
-
-}
 
 
 
 class Banner{
-    constructor(data,index){
-        this.ID=data.BannerID;
+    constructor(){
+        this.ID;
+        this.name;
+        this.index;
+    }
+    input(data,index)
+    {
+         this.ID=data.BannerID;
         this.name=data.BannerName;
         this.index=index;
     }
@@ -263,12 +176,14 @@ class Banner{
                     div.remove();
                     FormSubmit('select',Url,'').then((data)=>{
 
-        let page= new paginationViewUser()
+        let page= new paginationView()
+        page.nameClass=new Banner()
         page.array=data;
         page.body=tableBanner;
         page.hasNext=document.getElementById('next');
         page.hasPrev=document.getElementById('back');
         page.itemsPage=8;
+        page.pageinfo=document.getElementById('page-info-banner');
         page.displayPage();
         page.button();
 });
@@ -291,15 +206,16 @@ class Banner{
     delete(){
         this.SendRequest('del',Url,[{BannerID:this.ID}]).then(data=>{
             if(data.success){
-                FormSubmit('select',Url,'').then((data)=>{
+     FormSubmit('select',Url,'').then((data)=>{
    
-
-        let page= new paginationViewUser()
+        let page= new paginationView()
+        page.nameClass=new Banner()
         page.array=data;
         page.body=tableBanner;
         page.hasNext=document.getElementById('next');
         page.hasPrev=document.getElementById('back');
         page.itemsPage=8;
+        page.pageinfo=document.getElementById('page-info-banner');
         page.displayPage();
         page.button();
 

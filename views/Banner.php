@@ -58,4 +58,4 @@ Banner MANAGEMENT
 
 </div>
 </div>
-<script src="js/banner.js"></script>
+<script type="module" src="js/banner.js"></script>

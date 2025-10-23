@@ -30,7 +30,8 @@ but_items.addEventListener('click',()=>{
         }
  
           box_view_items.classList.add('active')
-       
+getitems('/Add/category',get_select_Cat,'CatID',"NameCat")
+getitems('/Add/banner',get_select_banner,'BannerID','BannerName')
 
 })
 
@@ -117,74 +118,32 @@ box_view_items.classList.remove('active')
 Categort_Form.addEventListener("submit",(e)=>{
     e.preventDefault()
 
+FormSubmit('insert','/Add/category','',Categort_Form).then((data)=>{
+     if(data.success){
+        box_cat.classList.remove('active')
+       
+    }       
+})
 
 
-    let mypromies= new Promise((r,j)=>{
-        let xht=new XMLHttpRequest()
-        xht.open("POST","/Add/category",true)
-        xht.onreadystatechange=()=>{
-            console.log(xht)
-            if(xht.status ==200 && xht.readyState == 4)
-            {
-                r(JSON.parse(xht.response))
-            }else{
-                j("Error")
-            }
-        }
-        let data = new FormData(Categort_Form);
-            data.append('type','insert');
-            xht.send(data)
-    })
-
-    mypromies.then((data)=>console.log(data))
+    
 })
 Banner_form.addEventListener("submit",(e)=>{
     e.preventDefault()
-    let mypromies= new Promise((r,j)=>{
-        let xht=new XMLHttpRequest()
-        xht.open("POST","/Add/banner",true)
-        xht.onreadystatechange=()=>{
-            console.log(xht)
-            if(xht.status ==200 && xht.readyState == 4)
-            {
-                r(JSON.parse(xht.response))
-            }else{
-                j("Error")
-            }
+    FormSubmit('insert','/Add/banner','',Banner_form).then((data)=>{
+        if(data.success){
+            box_banner.classList.remove('active')
         }
-        let data = new FormData(Banner_form);
-            data.append('type','insert');
-            xht.send(data)
     })
-
-    mypromies.then((data)=>console.log(data))
+   
 })
-getitems('/Add/category',get_select_Cat,'CatID',"NameCat")
-getitems('/Add/banner',get_select_banner,'BannerID','BannerName')
+
 
 
 function getitems(url,select,id = null,name = null)
 {
    
-     new Promise((r,j)=>{
-        let xhr=new XMLHttpRequest();
-            xhr.open('POST',url)
-           
-            xhr.onreadystatechange=()=>
-            {
-                if(xhr.status == 200 && xhr.readyState == 4 )
-                {
-                   
-                    r(JSON.parse(xhr.response))
-                }else{
-                    // j('Error')
-                }
-
-            }
-            let data=new FormData()
-                data.append('type','select')
-            xhr.send(data);
-    }).then((data)=>{
+FormSubmit('select',url,'','').then((data)=>{
         select.innerHTML='';
         data.forEach( item=> {
         

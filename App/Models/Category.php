@@ -21,7 +21,7 @@ class Category extends Models
         $this->conn= (new Database());
         $this->CatName=filter_input(INPUT_POST, 'Categort', FILTER_SANITIZE_SPECIAL_CHARS) ?? null ;
         $this->CatID=filter_input(INPUT_POST,'catID',FILTER_SANITIZE_SPECIAL_CHARS) ?? null ;
-        $this->Type=filter_input(INPUT_POST,'type',FILTER_SANITIZE_SPECIAL_CHARS) ?? null ;
+        $this->Type=filter_input(INPUT_POST,'action',FILTER_SANITIZE_SPECIAL_CHARS) ?? null ;
     
 
         $this->require();
@@ -68,7 +68,8 @@ class Category extends Models
     }
   public function search()
     {
-        $this->query(' SELECT * FROM Category WHERE NameCat  LIKE  %:NameCat%  OR CatID=:CatID ');
+        $this->CatName= '%'.$this->CatName.'%';
+        $this->query(' SELECT * FROM Category WHERE NameCat  LIKE  :NameCat  OR CatID=:CatID ');
         $this->bind(':NameCat',$this->CatName);
         $this->bind(':CatID',$this->CatID);
         $this->execute();
@@ -105,6 +106,9 @@ class Category extends Models
                 $this->update();
             }elseif($this->Type == 'del'){
                 $this->del();
+            }elseif($this->Type == 'search'){
+                 $this->search();    
+               
             }
 
         }

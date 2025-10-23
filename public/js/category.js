@@ -1,8 +1,10 @@
+import {primaryID,FormSubmit,paginationView}from './min.js'
 const btn_AddCategory = document.getElementById('btn_AddCategory');
 const box_Category = document.querySelector('.box-category');
 const btn_Close = document.getElementById('cat-cloes');
 const from_Category = document.getElementById('Categort_Form');
 const tbody = document.getElementById('cat-table-body');
+const search_Input = document.getElementById('search');
 const url='/Add/category';
 btn_AddCategory.addEventListener('click', () => {
     box_Category.classList.add('active');
@@ -14,24 +16,7 @@ btn_Close.addEventListener('click', () => {
 });
 from_Category.addEventListener('submit', (e) => {
     e.preventDefault();
-    let myPromise= new Promise((r,j)=>{
-        let xhr= new XMLHttpRequest()
-            xhr.open('POST',url,true)
-            console.log(xhr)
-            xhr.onreadystatechange=()=>{
-                if(xhr.status == 200 && xhr.readyState == 4)
-                {
-                    r(JSON.parse(xhr.response))
-                }else{
-                   
-                }
-            }
-            let data = new FormData(from_Category)
-                data.append('type','insert')
-            xhr.send(data)
-    })
-    
-   myPromise .then(data=>{
+  FormSubmit('insert',url,'',from_Category).then(data=>{
         if(data.success)
         {
          getCategories()
@@ -40,6 +25,7 @@ from_Category.addEventListener('submit', (e) => {
     })
 
 });
+
 document.addEventListener('keydown',(e)=>{
     if(e.key == 'Escape')
     {
@@ -47,25 +33,24 @@ document.addEventListener('keydown',(e)=>{
     }
     
 })
+search_Input.addEventListener('input',(e)=>{
+    let filter = e.target.value
+    FormSubmit('search',url,[{Categort:filter}],'').then(data=>{
+      let page= new paginationView()
+        page.array=data
+        page.body=tbody;
+        page.hasNext=document.getElementById('next')
+        page.hasPrev=document.getElementById('back')
+        page.itemsPage=8
+        page.nameClass=new Category()
+        page.pageinfo=document.getElementById('page-info-category')
+        page.displayPage()
+        page.button()
+    })
 
+})
 function getCategories() {
-   let myPromise = new Promise((resolve, reject) => {
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', url, true);
-    xhr.onreadystatechange = function () {
-       
-        if (xhr.status === 200 && xhr.readyState == 4   ) {
-            resolve(JSON.parse(xhr.response));
-        } else {
-           
-        }
-
-    }
-    let data= new FormData();
-    data.append('type','select');
-    xhr.send(data);
-
-   }).then(data=>{
+    FormSubmit('select',url,[],'').then(data=>{
     let page= new paginationView()
         page.array=data
         page.body=tbody;
@@ -73,6 +58,7 @@ function getCategories() {
         page.hasPrev=document.getElementById('back')
         page.itemsPage=8
         page.nameClass=new Category()
+        page.pageinfo=document.getElementById('page-info-category')
         page.displayPage()
         page.button()
 
@@ -81,75 +67,7 @@ function getCategories() {
     
 }
 
-class paginationView
-{
-    constructor()
-    {
-        this.start=0
-        this.end=0
-        this.currentPage=1
-        this.totalPage=0
-        this.hasNext=null
-        this.hasPrev=null
-        this.array=[]
-        this.itemsPage=10
-        this.nameClass='';
-        this.body=null;
-     
-        
-    }
-    displayPage()
-    {
-         this.totalPage=  Math.ceil(this.array.length / this.itemsPage)
-        this.nameClass= this.nameClass || 'Sale'
-        this.start=(this.currentPage -1) * this.itemsPage
-        this.end=this.start + this.itemsPage
-        this.view()
-    }
-    button()
-    {
-                this.hasNext.addEventListener('click',()=>{
-            if(this.hasNext && this.currentPage < this.totalPage)
-            {
-                this.currentPage++  
-                this.start=(this.currentPage -1) * this.itemsPage
-                this.end=this.start + this.itemsPage
-                this.view()
-            }
-          
-            console.log(this.currentPage,this.totalPage)
 
-
-            })
-               this.hasPrev.addEventListener('click',()=>{
-              
-            if(this.hasPrev && this.currentPage > 1)
-            {
-                this.currentPage--  
-                this.start=(this.currentPage -1) * this.itemsPage
-                this.end=this.start + this.itemsPage
-                this.view()
-            }})
-
-    }
-    view()
-    {
-        document.getElementById('page-info-user').textContent=`Page ${this.currentPage}  of ${this.totalPage}`
-         this.body.innerHTML = '';
-       this.array.slice(this.start,this.end).forEach((item,index )=>{
-       
-            let n=  this.nameClass
-            n.input(item,++index)
-            n.innerHTML()
-       })
-     
-    }
-
-
-
-
-
-}
 
 
 getCategories();
