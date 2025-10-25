@@ -1,10 +1,12 @@
+import {primaryID,FormSubmit,paginationView}from './min.js'
 const btn_add = document.getElementById('btn_AddCustomer');
 const box_add = document.querySelector('.add-cutomer');
 const btn_close = box_add.querySelector('.Close');
 const FormCustomer = document.getElementById('customer-form');
 const tableCustomer = document.getElementById('cat-table-body');
-const search = document.getElementById('searchCustomer');
+const search = document.getElementById('search');
 const nameC=document.getElementById('name')
+
 const Url = '/Add/Cutomer';
 btn_add.addEventListener('click', () => {
     box_add.classList.toggle('active');
@@ -43,132 +45,59 @@ FormCustomer.addEventListener('submit', (e) => {
     }
     
 })
+search.addEventListener('input',(e)=>{
+    let filter=e.target.value
+    FormSubmit('search', Url, [{name:filter}], '').then((data) => {
+    let page= new paginationView()
+        page.array=data;
+        page.body=tableCustomer;
+        page.nameClass = new Customer();
+        page.hasNext=document.getElementById('next');
+        page.hasPrev=document.getElementById('back');
+        page.itemsPage=8;
+        page.pageinfo=document.getElementById('pageinfo');
+        page.displayPage();
+        page.button();
+    
+    })
+})
  getitmes()
 
 function getitmes()
 {
 FormSubmit('select', Url, '', '').then((data) => {
-        let page= new paginationViewCutomer()
+        let page= new paginationView()
         page.array=data;
         page.body=tableCustomer;
+        page.nameClass = new Customer();
         page.hasNext=document.getElementById('next');
         page.hasPrev=document.getElementById('back');
         page.itemsPage=8;
+        page.pageinfo=document.getElementById('pageinfo');
         page.displayPage();
         page.button();
 })
 }
 
-function FormSubmit(type,url,data,form){
-   return new Promise((resolve,reject)=>{
-    let xhr = new XMLHttpRequest();
-            xhr.open('POST',url,true);
-            console.log(xhr.responseText);
-        xhr.onreadystatechange=()=>{
-            if(xhr.readyState===4 && xhr.status===200){
-             
-                resolve(JSON.parse(xhr.response));
-            }else{
-                // reject('Error');
-            }
-
-        }
-        
 
 
-            let dataSend = new FormData(form || undefined);
-         if(Array.isArray(data)){
-            data.forEach((item)=>{
-                for(let key in item){
-                    dataSend.append(key,item[key]);
-                }
-            })
-
-        }
-
-        
-            dataSend.append('type',type);
-        xhr.send(dataSend);
-
-   
-    })
-  
-}
-
-class paginationViewCutomer  
-{
-    constructor()
-    {
-        this.start=0
-        this.end=0
-        this.currentPage=1
-        this.totalPage=0
-        this.hasNext=null
-        this.hasPrev=null
-        this.array=[]
-        this.itemsPage=10
-        this.nameClass='';
-        this.body=null;
-     
-        
-    }
-    displayPage()
-    {
-         this.totalPage=  Math.ceil(this.array.length / this.itemsPage)
-        this.nameClass= this.nameClass || 'Sale'
-        this.start=(this.currentPage -1) * this.itemsPage
-        this.end=this.start + this.itemsPage
-        this.view()
-    }
-    button()
-    {
-                this.hasNext.addEventListener('click',()=>{
-            if(this.hasNext && this.currentPage < this.totalPage)
-            {
-                this.currentPage++  
-                this.start=(this.currentPage -1) * this.itemsPage
-                this.end=this.start + this.itemsPage
-                this.view()
-            }
-          
-            console.log(this.currentPage,this.totalPage)
-
-
-            })
-               this.hasPrev.addEventListener('click',()=>{
-              
-            if(this.hasPrev && this.currentPage > 1)
-            {
-                this.currentPage--  
-                this.start=(this.currentPage -1) * this.itemsPage
-                this.end=this.start + this.itemsPage
-                this.view()
-            }})
-
-    }
-    view()
-    {
-        console.log(this.array);
-        document.getElementById('page-info-user').textContent=`Page ${this.currentPage}  of ${this.totalPage}`
-         this.body.innerHTML = '';
-       this.array.slice(this.start,this.end).forEach((item,index )=>{
-       
-            let n=   new Customer(item,++index)
-            n.innerHTML()
-       })
-     
-    }
-
-
-
-
-
-}
 
 
 
 class Customer{
-    constructor(data,index){
+    constructor(){
+        this.id ;
+        this.name ;
+        this.address ;
+        this.phone ;
+        this.email ;
+        this.QtyOrder ;
+        this.type  ;
+        this.index;
+       
+    }
+    input(data,index)
+    {
         this.id = data.customersID 
         this.name = data.name
         this.address = data.address 
@@ -177,7 +106,6 @@ class Customer{
         this.QtyOrder = data.QtyOrder || 0  ;
         this.type = data.type 
         this.index=index
-       
     }
     innerHTML(){
         let tr = document.createElement('tr');

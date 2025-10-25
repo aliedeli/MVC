@@ -48,7 +48,7 @@ use App\Models\Session;
 
             back
         </button>
-         <span id="page-info-user">Page 1 of 10</span>
+         <span id="pageinfo">Page 1 of 10</span>
         <button class="btn btn-primary " type="button" id='next'>
 
             next
@@ -60,4 +60,4 @@ use App\Models\Session;
 
 
 
-<script src="/js/customer.js"></script>
+<script type="module" src="/js/customer.js"></script>

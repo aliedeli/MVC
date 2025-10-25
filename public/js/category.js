@@ -199,7 +199,7 @@ class Category {
                 let data = new FormData()
                     data.append('catID',this.id)
                     data.append('Categort',this.name)
-                    data.append('type',type)
+                    data.append('action',type)
                     
                 xhr.send(data)
         })

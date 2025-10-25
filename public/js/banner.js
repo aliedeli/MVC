@@ -84,7 +84,7 @@ search.addEventListener('input',(e)=>{
 
 
 FormSubmit('select',Url,'').then((data)=>{
-   
+    console.log(data);
 
         let page= new paginationView()
         page.nameClass=new Banner()
@@ -176,17 +176,17 @@ class Banner{
                     div.remove();
                     FormSubmit('select',Url,'').then((data)=>{
 
-        let page= new paginationView()
-        page.nameClass=new Banner()
-        page.array=data;
-        page.body=tableBanner;
-        page.hasNext=document.getElementById('next');
-        page.hasPrev=document.getElementById('back');
-        page.itemsPage=8;
-        page.pageinfo=document.getElementById('page-info-banner');
-        page.displayPage();
-        page.button();
-});
+                    let page= new paginationView()
+                    page.nameClass=new Banner()
+                    page.array=data;
+                    page.body=tableBanner;
+                    page.hasNext=document.getElementById('next');
+                    page.hasPrev=document.getElementById('back');
+                    page.itemsPage=8;
+                    page.pageinfo=document.getElementById('page-info-banner');
+                    page.displayPage();
+                    page.button();
+            });
                 }
             })
          }

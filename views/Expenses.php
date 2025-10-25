@@ -83,7 +83,7 @@
 
               back
           </button>
-          <span id="page-info-expense">Page 1 of 10</span>
+          <span id="page-info">Page 1 of 10</span>
           <button class="btn btn-primary " type="button" id='next'>
 
               next
@@ -93,4 +93,4 @@
       </div>
 
   </div>
-  <script src="js/expenses.js"></script>
+  <script type="module" src="js/expenses.js"></script>

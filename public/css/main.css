@@ -1,5 +1,18 @@
 @charset "UTF-8";
 :root {
+  --primary-color: #1e3a8a; /* أزرق داكن */
+  --primary-light: #3b82f6; /* أزرق فاتح للأزرار أو التفاعل */
+  --secondary-color: #6b7280; /* رمادي متوسط للعناوين الثانوية */
+  --background-color: #f9fafb; /* خلفية عامة فاتحة */
+  --card-bg: #ffffff; /* لون بطاقات المعلومات */
+  --border-color: #e5e7eb; /* حدود ناعمة حول العناصر */
+  --text-color: #111827; /* نص أساسي داكن */
+  --text-light: #6b7280; /* نص ثانوي أو مساعد */
+  /* 🚨 ألوان التحذير والتنبيهات */
+  --success-color: #10b981; /* أخضر للتأكيد أو النجاح */
+  --warning-color: #f59e0b; /* أصفر للتنبيهات */
+  --danger-color: #ef4444; /* أحمر للأخطاء أو الحذف */
+  --shadow-color: rgba(0, 0, 0, 0.1);
   --primary: #0066ff;
   --primary-dark: #003d99;
   --primary-light: #66a3ff;
@@ -44,7 +57,7 @@
   --radius: 10px;
   --shadow: 0 6px 18px rgba(16,24,40,0.06);
   --transition: 180ms ease;
-  --primary-color: linear-gradient(to bottom left , #0e2a47,#3a6faa );
+  --primary-color:linear-gradient(to bottom right , #1e3a8a,#3b82f6 ) ;
   --primary-table-color: linear-gradient(to bottom right , #b6d4ff,#3a6faa );
 }
 
@@ -792,7 +805,7 @@ header {
   height: 60px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  background-image: linear-gradient(to bottom right, #0e2a47, #3a6faa);
+  background-image: var(--primary-color);
   display: flex;
 }
 header .button {
@@ -869,7 +882,7 @@ body {
   align-items: center;
   font-family: "Cabin";
   font-weight: bold;
-  background-image: linear-gradient(to bottom right, #0e2a47, #3a6faa);
+  background-image: var(--primary-color);
   border-bottom-right-radius: 15px;
   border-top-right-radius: 20px;
   box-shadow: 3px 0 5px 1px rgba(0, 0, 0, 0.25), 3px 0 5px 1px rgba(0, 0, 0, 0.25);
@@ -2835,4 +2848,63 @@ tbody tr:nth-child(even) {
   margin-top: 10px;
   color: var(--muted);
   font-size: 13px;
+}
+
+.box-settings {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.box-settings form {
+  width: 50%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 15px;
+}
+.box-settings form .row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.box-settings form .row .input {
+  gap: 30px;
+}
+.box-settings form .row .input .text-name {
+  font-size: 18px;
+  font-weight: 500;
+  width: 25%;
+  flex-shrink: 0;
+}
+.box-settings form .row .input input[type=text], .box-settings form .row .input input[type=email], .box-settings form .row .input input[type=password] {
+  width: 300px;
+  height: 35px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+.box-settings form .row .input input[type=text]:focus, .box-settings form .row .input input[type=email]:focus, .box-settings form .row .input input[type=password]:focus {
+  outline: none;
+  border-color: #007BFF;
+}
+.box-settings form .row .input select {
+  width: 320px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+.box-settings form .row .input select:focus {
+  outline: none;
+  border-color: #007BFF;
 }/*# sourceMappingURL=main.css.map */

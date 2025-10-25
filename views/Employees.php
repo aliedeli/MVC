@@ -72,4 +72,4 @@ use App\Models\Session;
     </div>
 
 
-<script src="js/employees.js"></script>
+<script type="module" src="js/employees.js"></script>

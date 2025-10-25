@@ -1,3 +1,4 @@
+import {primaryID,FormSubmit,paginationView}from './min.js';
 const btnOpne=document.getElementById('Add-Expenses');
 const appBox=document.querySelector('.app-expnese');
 const btnCloes=appBox.querySelector('.Cloes')
@@ -13,12 +14,14 @@ search.addEventListener('input',e=>{
     {
     FormSubmit('search', Url,e.target.value , '').then(data=>{
            
-            let page= new paginationViewExpenses()
+            let page= new paginationView()
                 page.array=data;
                 page.body=table;
+                page.nameClass=new Expenses();
                 page.hasNext=document.getElementById('next');
                 page.hasPrev=document.getElementById('back');
                 page.itemsPage=8;
+                page.pageinfo=document.getElementById('page-info');
                 page.displayPage();
                 page.button();
         
@@ -52,13 +55,15 @@ getDateAll()
 function getDateAll()
 {
 FormSubmit('select', Url, '', '').then((data) => {
-  
-        let page= new paginationViewExpenses()
+        console.log(data);
+    let page= new paginationView()
         page.array=data;
         page.body=table;
+        page.nameClass=new Expenses();
         page.hasNext=document.getElementById('next');
         page.hasPrev=document.getElementById('back');
         page.itemsPage=8;
+        page.pageinfo=document.getElementById('page-info');
         page.displayPage();
         page.button();
         
@@ -66,120 +71,21 @@ FormSubmit('select', Url, '', '').then((data) => {
 }
 
 
-function FormSubmit(action,url,data,form){
-    
-   return new Promise((resolve,reject)=>{
-    let xhr = new XMLHttpRequest();
-            xhr.open('POST',url,true);
-      
-        xhr.onreadystatechange=()=>{
-            if(xhr.readyState===4 && xhr.status===200){
-             
-                resolve(JSON.parse(xhr.response));
-            }else{
-                // reject('Error');
-            }
-
-        }
-        
-
-
-         let dataSend = new FormData(form || undefined);
-         if(Array.isArray(data)){
-           
-            data.forEach((item)=>{
-                for(let key in item){
-                    
-                    dataSend.append(key,item[key]);
-                }
-            })
-
-        }else if(action == 'search'){
-            dataSend.append('search',data);
-        }
-
-         
-            dataSend.append('action',action);
-        xhr.send(dataSend);
-
-   
-    })
-  
-}
-
-class paginationViewExpenses
-{
-    constructor()
-    {
-        this.start=0
-        this.end=0
-        this.currentPage=1
-        this.totalPage=0
-        this.hasNext=null
-        this.hasPrev=null
-        this.array=[]
-        this.itemsPage=8
-        this.nameClass='';
-        this.body=null;
-     
-        
-    }
-    displayPage()
-    {
-         this.totalPage=  Math.ceil(this.array.length / this.itemsPage)
-        this.nameClass= this.nameClass || 'Sale'
-        this.start=(this.currentPage -1) * this.itemsPage
-        this.end=this.start + this.itemsPage
-        this.view()
-    }
-    button()
-    {
-                this.hasNext.addEventListener('click',()=>{
-            if(this.hasNext && this.currentPage < this.totalPage)
-            {
-                this.currentPage++  
-                this.start=(this.currentPage -1) * this.itemsPage
-                this.end=this.start + this.itemsPage
-                this.view()
-            }
-          
-            console.log(this.currentPage,this.totalPage)
-
-
-            })
-               this.hasPrev.addEventListener('click',()=>{
-              
-            if(this.hasPrev && this.currentPage > 1)
-            {
-                this.currentPage--  
-                this.start=(this.currentPage -1) * this.itemsPage
-                this.end=this.start + this.itemsPage
-                this.view()
-            }})
-
-    }
-    view()
-    {
-     
-        document.getElementById('page-info-expense').textContent=`Page ${this.currentPage}  of ${this.totalPage}`
-         this.body.innerHTML = '';
-       this.array.slice(this.start,this.end).forEach((item,index )=>{
-       
-            let n=   new Expenses(item,++index)
-            n.innerHTML()
-       })
-     
-    }
 
 
 
-
-
-}
 
 
 class Expenses {
-    constructor(data , index)
+    constructor()
+    {
+        this.ExpID;
+        this.ExpenseName;
+        this.AmountPaid;
+        this.date;
+        this.index;
+    }
+    input(data,index)
     {
         this.ExpID=data.ExpID;
         this.ExpenseName=data.ExpenseName;

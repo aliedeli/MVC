@@ -642,31 +642,7 @@ class Sale  {
     }
     dele()
     {
-            let myPromise= new Promise((r,j)=>{
-        let xhr= new XMLHttpRequest()
-          xhr.open('POST','/Add/Sale',true)
-
-           xhr.onreadystatechange=()=>
-            {
-                if(xhr.status == 200 && xhr.readyState == 4 )
-                {
-                  
-                    r(JSON.parse(xhr.response))
-                }else{
-                   
-                }
-
-            }
-            
-                let data= new FormData()
-                data.append('OrderID',this.ID)    
-                data.append('type','dele')
-                xhr.send(data);
-            
-
-         
-                
-      }).then(data=>{
+ FormSubmit('del',UrlSale,[{OrderID:this.ID}],'').then(data=>{
         if(data.success)
         {
            getSaleAll()
@@ -754,73 +730,36 @@ class SaleTable
     }
     dele()
     {
-          let myPromise= new Promise((r,j)=>{
-        let xhr= new XMLHttpRequest()
-          xhr.open('POST','/Add/Sale',true)
-
-           xhr.onreadystatechange=()=>
-            {
-                if(xhr.status == 200 && xhr.readyState == 4 )
-                {
-                  
-                    r(JSON.parse(xhr.response))
-                }else{
-                   
-                }
-
-            }
-            
-                let data= new FormData()
-                data.append('OrderID',order.OrderID)    
-                data.append('data',JSON.stringify(this))
-                data.append('type','Dele_Details')
-                xhr.send(data);
-            
-
-         
-                
-      }).then(data=>{
-        if(data.success)
-        {
-            getSale()
+  let arr={
+            OrderID:order.OrderID,
+            data:JSON.stringify(this)
+        
         }
+        FormSubmit('Dele_Details',UrlSale,[arr],'').then(data=>{
+            if(data.success)
+            {
+                getSale()
+            }   
+        })
 
-      })
+        
     }
     update()
     {
-       let myPromise= new Promise((r,j)=>{
-        let xhr= new XMLHttpRequest()
-          xhr.open('POST','/Add/Sale',true)
-
-           xhr.onreadystatechange=()=>
-            {
-                if(xhr.status == 200 && xhr.readyState == 4 )
-                {
-                  
-                    r(JSON.parse(xhr.response))
-                }else{
-                   
-                }
-
-            }
-            
-                let data= new FormData()
-                data.append('OrderID',order.OrderID)    
-                data.append('data',JSON.stringify(this))
-                data.append('type','update_details')
-                xhr.send(data);
-            
-
-         
-                
-      }).then(data=>{
-        if(data.success)
-        {
-            getSale()
+        
+        let arr={
+            OrderID:order.OrderID,
+            data:JSON.stringify(this)
+        
         }
+        FormSubmit('update_details',UrlSale,[arr],'').then(data=>{
+            if(data.success)
+            {
+                getSale()
+            }   
+        })
 
-      })
+   
     }
    
 

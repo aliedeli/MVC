@@ -237,6 +237,7 @@ class items
         this.count=parseInt(data.qty);
         this.catID=data.CatID;
         this.BannerID=data.BannerID;
+        this.index=index;
     }
 
     innerHTML(){
@@ -262,18 +263,18 @@ class items
         td_3.textContent=this.price
         td_4.textContent=this.discount
         td_5.textContent=this.count
-
+        td_7.textContent=this.index
         td_6.appendChild(but_view)
         td_6.appendChild(but_delete)
 
-
+        tr.appendChild(td_7)
         tr.appendChild(td_0)
         tr.appendChild(td_2)
         tr.appendChild(td_3)
         tr.appendChild(td_4)
         tr.appendChild(td_5)
         tr.appendChild(td_6)
-        // tr.appendChild(td_7)
+        
 
 
 
@@ -599,7 +600,7 @@ class items
             }
             let data=new FormData(from)
                 data.append('itemID',this.ID)
-                data.append('type',type)
+                data.append('action',type)
             xhr.send(data);
     }).then((data)=>{
 

@@ -56,6 +56,10 @@ class HomeController
     {
         view('Employees');
     }
+    public function settings()
+    {
+        view('settings');
+    }
 
     public function App_Items()
     {

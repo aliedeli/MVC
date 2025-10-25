@@ -49,7 +49,7 @@ Banner MANAGEMENT
 
             back
         </button>
-         <span id="page-info-user">Page 1 of 10</span>
+         <span id="page-info-banner">Page 1 of 10</span>
         <button class="btn btn-primary " type="button" id='next'>
 
             next

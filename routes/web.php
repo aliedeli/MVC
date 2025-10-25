@@ -19,7 +19,10 @@ Route::get('/employees',[HomeController::class , 'employees'],[]);
 Route::get('/safe',function(){
     return view('Safe');
 });
-
+// Route::get('/settings',[HomeController::class , 'settings'],[]);
+Route::get('/settings',function(){
+    return view('settings');
+});
 Route::post('/App/expenses',[HomeController::class , 'App_expenses'],[]);
 Route::post('/App/items',[HomeController::class,'App_Items'],[]);
 Route::post('/App/loing',[HomeController::class,'App_loing'],[]);

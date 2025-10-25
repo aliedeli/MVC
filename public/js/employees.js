@@ -1,3 +1,4 @@
+import {primaryID,FormSubmit,paginationView}from './min.js'
 const formEmployees=document.getElementById('form-Employees');
 const formDepartment=document.getElementById('form-Department');
 const boxAddEmployees=document.querySelector('.Employees');
@@ -56,12 +57,13 @@ search.addEventListener('input',e=>{
     {
         FormSubmit('search', UrlEmployees, [{search:e.target.value}], '').then((data) => {
         let pagin=new paginationView()
-            pagin.nameClass='Employees'
+            pagin.nameClass=new Employees()
             pagin.body=Tbody
             pagin.array=data
             pagin.hasNext=document.getElementById('next')
             pagin.hasPrev=document.getElementById('back')
             pagin.itemsPage=8
+            pagin.pageinfo=document.getElementById('page-info')
             pagin.displayPage()
             pagin.button()
 })
@@ -70,46 +72,7 @@ search.addEventListener('input',e=>{
     }
 })
 
-function FormSubmit(action,url,data,form){
-    
-   return new Promise((resolve,reject)=>{
-    let xhr = new XMLHttpRequest();
-            xhr.open('POST',url,true);
- 
-        xhr.onreadystatechange=()=>{
-            if(xhr.readyState===4 && xhr.status===200){
-             
-                resolve(JSON.parse(xhr.response));
-            }else{
-                // reject('Error');
-            }
 
-        }
-        
-
-
-         let dataSend = new FormData(form || undefined);
-         if(Array.isArray(data)){
-           
-            data.forEach((item)=>{
-                for(let key in item){
-                    
-                    dataSend.append(key,item[key]);
-                }
-            })
-
-        }else if(action == 'search'){
-            dataSend.append('search',data);
-        }
-
-         
-            dataSend.append('action',action);
-        xhr.send(dataSend);
-
-   
-    })
-  
-}
 
 FormSubmit('select', UrlDepartments, '', '').then((data) => {
     data.forEach(e=>{
@@ -124,12 +87,13 @@ function getItmes(){
 FormSubmit('select', UrlEmployees, '', '').then((data) => {
    
         let pagin=new paginationView()
-            pagin.nameClass='Employees'
+            pagin.nameClass=new Employees()
             pagin.body=Tbody
             pagin.array=data
             pagin.hasNext=document.getElementById('next')
             pagin.hasPrev=document.getElementById('back')
             pagin.itemsPage=8
+            pagin.pageinfo=document.getElementById('page-info')
             pagin.displayPage()
             pagin.button()
     
@@ -138,80 +102,31 @@ FormSubmit('select', UrlEmployees, '', '').then((data) => {
 }
 
 
-class paginationView
-{
-    constructor()
-    {
-        this.start=0
-        this.end=0
-        this.currentPage=1
-        this.totalPage=0
-        this.hasNext=null
-        this.hasPrev=null
-        this.array=[]
-        this.itemsPage=10
-        this.nameClass='';
-        this.body=null;
-     
-        
-    }
-    displayPage()
-    {
-         this.totalPage=  Math.ceil(this.array.length / this.itemsPage)
-        this.nameClass= this.nameClass || 'Sale'
-        this.start=(this.currentPage -1) * this.itemsPage
-        this.end=this.start + this.itemsPage
-        this.view()
-    }
-    button()
-    {
-                this.hasNext.addEventListener('click',()=>{
-            if(this.hasNext && this.currentPage < this.totalPage)
-            {
-                this.currentPage++  
-                this.start=(this.currentPage -1) * this.itemsPage
-                this.end=this.start + this.itemsPage
-                this.view()
-            }
-          
-            console.log(this.currentPage,this.totalPage)
-
-
-            })
-               this.hasPrev.addEventListener('click',()=>{
-              
-            if(this.hasPrev && this.currentPage > 1)
-            {
-                this.currentPage--  
-                this.start=(this.currentPage -1) * this.itemsPage
-                this.end=this.start + this.itemsPage
-                this.view()
-            }})
-
-    }
-    view()
-    {
-        document.getElementById('page-info').textContent=`Page ${this.currentPage}  of ${this.totalPage}`
-         this.body.innerHTML = '';
-       this.array.slice(this.start,this.end).forEach((item,index )=>{
-       
-            let n=   new Employees(item,++index)
-            n.innerHTML()
-       })
-     
-    }
-
-
-
-
-
-}
-
 class Employees
 {
-  constructor(data,index )
+  constructor()
   {
-        this.EmployeeID=data.EmployeeID
+        this.EmployeeID
+        this.FirstName
+        this.LastName
+        this.DateOfBirth
+        this.Gender
+        this.HireDate
+        this.DepartmentID
+        this.Location
+        this.DepartmentName
+        this.JobTitleID
+        this.Salary
+        this.Email
+        this.Phone
+        this.Addres
+        this.index
+      
+
+  }  
+  input(data,index)
+  {
+    this.EmployeeID=data.EmployeeID
         this.FirstName=data.FirstName
         this.LastName=data.LastName
         this.DateOfBirth=data.DateOfBirth
@@ -226,9 +141,7 @@ class Employees
         this.Phone=data.Phone
         this.Addres=data.Address
         this.index=index
-      
-
-  }  
+  }
 
   innerHTML()
   {

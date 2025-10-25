@@ -26,6 +26,9 @@ use App\Models\Session;
             <thead>
                 <tr>
                     <th>
+                        ID
+                    </th>
+                    <th>
                         name
                     </th>
                     <th>
