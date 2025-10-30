@@ -1,5 +1,10 @@
 <?php
 
+header('Content-Type: text/html; charset=utf-8');
+header('Content-Type: application/pdf');
+header('Content-Disposition: inline; filename="document.pdf"');
+header('Cache-Control: private, max-age=0, must-revalidate');
+header('Pragma: public');
 
 use Mpdf\Mpdf;
 use Database\Database;
@@ -14,11 +19,6 @@ use App\Models\Session;
     }
 
 
-header('Content-Type: text/html; charset=utf-8');
-header('Content-Type: application/pdf');
-header('Content-Disposition: inline; filename="document.pdf"');
-header('Cache-Control: private, max-age=0, must-revalidate');
-header('Pragma: public');
 
 
 
@@ -45,6 +45,8 @@ class pdf extends Mpdf
         'format' => 'A6',
         'directionality' => 'rtl'
         ]);
+    
+       
 
         $this->id=filter_input(INPUT_GET,'id',FILTER_SANITIZE_NUMBER_INT) ?? null;
         // $this->name=filter_input(INPUT_GET,'name',FILTER_SANITIZE_SPECIAL_CHARS) ?? null;

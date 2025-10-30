@@ -23,7 +23,10 @@ class Login extends Models
     {
         $this->Username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING) ?? null ;
         $this->Password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING) ?? null ;
-    }
+          Session::start();
+          Session::CreateToken(); // 1 hour
+          
+     }
     public function Login_in()
     {
         $this->query("SELECT * FROM $this->table WHERE UserName = :username");
@@ -39,7 +42,7 @@ class Login extends Models
                  
                      if($data['Status'] == "Active")
                      {
-                          Session::start();
+                          
                           Session::set('UserID', $data['UserID']);
                           Session::set('UserName', $data['UserName']);
                           Session::set('Role', $this->getUserType($data['UserID']));

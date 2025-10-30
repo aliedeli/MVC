@@ -49,7 +49,7 @@ class View
           
             $view =$path .$view .'.php';
         }
-         
+      
     foreach($params as $param => $value)
         {   
            

@@ -1,5 +1,7 @@
 <?php
 use App\Models\Session;
+use SecTheater\Suppors\Hash;
+
 //  Session::start();
 
     if(is_null(Session::get('UserID')))
@@ -8,7 +10,7 @@ use App\Models\Session;
     }else{
          header('Location: /');
     }
-    
+
 ?>
             <div class="login-container">
             <form  class="login-form " id="loginForm">

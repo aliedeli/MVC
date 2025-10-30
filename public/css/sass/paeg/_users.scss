@@ -1,4 +1,5 @@
   .Add-user-container{
+    position: relative;
     width: 90%;
     height: auto;
     form{
@@ -297,5 +298,13 @@ background-image:var(--primary-color) ;
 
     }
 
+
+}
+.Role-table-Scrnne{
+  position: absolute;
+  width: 50%;
+  height: 60%;
+  top: 25px;
+  left: 25%;
 
 }

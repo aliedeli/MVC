@@ -10,6 +10,7 @@ use App\Models\Session;
 
 
     ?>
+    
     <img src="" alt="">
     <div class="container">
         <div class="info">
@@ -67,15 +68,17 @@ use App\Models\Session;
 </div>
 
  </div>
+
  <script src="js/info.js"></script>
- <script  src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 
  <script>
   let arrInfo=[]
   let infos= document.querySelectorAll('[data-table]');
-      window.onload=()=>{
+   window.onload=function(){
+
    const ctx = document.getElementById('myChart');
         infos.forEach(e=>{
           arrInfo.push(e.textContent)
@@ -100,7 +103,7 @@ use App\Models\Session;
     }
   });
 
-      }
-
+      
+   }
 
 </script>

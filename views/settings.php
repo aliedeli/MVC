@@ -1,14 +1,18 @@
-<div class="box-settings">
+<?php
+
+use App\Models\Session;
+?>
+<div class="box-settings" >
     <h2>Settings</h2>
-    <form method="post" action="save_settings.php">
+    <form method="post" id="Form">
        <div class="row">
         <div class="input">
             <div class="icon">
-
+                <input type="text"  id="UsewrID" value="<?php echo  Session::get('UserID')?>" hidden />
             </div>
             <div class="text-name">userName</div>
             <div class="value">
-                <input type="text" name="userName" value="" />
+                <input type="text" name="UserName" value="" id="username" value="" />
             </div>
         </div>
          </div>
@@ -19,7 +23,8 @@
                 Email
             </div>
               <div class="value">
-                <input type="email" name="email">
+            
+                <input type="email" name="Email" value="" id="email"/>
             </div>
         </div>
       
@@ -31,7 +36,7 @@
                 Password
             </div>
               <div class="value">
-                <input type="password" name="password">
+                <input type="password" name="new-password" id="pass" maxlength="20">
             </div>
          </div>
          </div>
@@ -43,7 +48,7 @@
                 C-Password
             </div>
               <div class="value">
-                <input type="password" name="password">
+                <input type="password" name="C-Password" id="cpass" maxlength="20">
             </div>
         
        </div>
@@ -71,3 +76,4 @@
             </div>
     </form>
 </div>
+<script type="module" src="/js/settings.js"></script>

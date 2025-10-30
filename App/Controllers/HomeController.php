@@ -16,15 +16,16 @@ class HomeController
     }
     public function items()
     {
+       
         return view('items');
     }
     public function safe()
     {
         return view('Safe');
     }
-    public function sale( $params=[])
+    public function sale( )
     {
-        return view('sale', $params);
+        return view('sale');
     }
     public function User()
      {
@@ -44,9 +45,9 @@ class HomeController
          
          return view('customer');
     }
-        public function printe()
+        public function printe($params=[])
     {
-        view('printers');
+        view('printers', $params);
     }
     public function expenses()
     {

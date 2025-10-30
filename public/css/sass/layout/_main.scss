@@ -7,7 +7,7 @@
  list-style: none;
 }
 body{
-  height: 90vh;
+  height: 92vh;
   background: var(--background--color);
 }
 
@@ -33,16 +33,24 @@ body{
     border-bottom-right-radius: 15px;
     border-top-right-radius: 20px;
     box-shadow: 3px 0 5px 1px rgba(0, 0, 0, 0.25),3px 0 5px 1px rgba(0, 0, 0, 0.25);
-    //  overflow: hidden;
+    transition: width 0.5s ease-in-out;
+     
     &.active{
-      width: 8.5%;
+      width: 5%;
+     animation:  width 0.5s ease-in-out ;
+     z-index: 5;
+      .userNmae{
+        display: none;
+      }
       .ul{
         li
         {
+          position: relative;
           a{
             align-items: center;
             .text-name{
               display: none;
+
             }
             &:hover > .text-name{
                display:inline-block;
@@ -50,9 +58,9 @@ body{
               background-color: white;
               top: 17px;
               left: 55px;
-           
+      
               color: #000;
-              z-index: 100;
+              z-index: 155;
 
             }
               &:hover > .text-name::before{
@@ -69,7 +77,11 @@ body{
                
               }
           }
-        }
+         
+          }
+ 
+        
+        
       }
       .out{
 
@@ -81,7 +93,7 @@ body{
  
      .userInfo{
     width: 100%;
-    height: 20%;
+    height: 15%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,8 +101,8 @@ body{
      overflow: hidden;
     gap: 10px;
     .userImg{
-      width: 60px;
-      height: 60px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       overflow:hidden;
       // border: 1px solid #323232;
@@ -100,19 +112,21 @@ body{
         object-fit: cover;
       }
     }
+
     .userNmae{
       width: 100%;
       height: auto;
       text-align: center;
       padding: 0.5%;
       font-weight: bold;
+       transition: display  1.5s ease-in-out;
     }
 
 
   }
     .ul{
       width: 100%;
-      height: 80%;
+      height: 90%;
       display: flex;
       justify-content: space-around;
       align-items: center;
@@ -170,7 +184,7 @@ body{
     }
       .out{
     width: 100%;
-    height: 8.5%;
+    height: 10%;
     display: flex;
     justify-content: start;
     align-items: start;
@@ -211,9 +225,11 @@ body{
   
   @media ( max-width: 900px) {
     .nav-left {
-    
+     z-index: 5;
       width: 8.5%;
+     
       .ul{
+        z-index: 5;
         li
         {
           a{
@@ -280,4 +296,16 @@ body{
   
 
 
+}
+@keyframes width {
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 0.5;
+  }
+  100%{
+    opacity: 1;
+  }
+  
 }

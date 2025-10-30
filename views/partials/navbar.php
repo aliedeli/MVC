@@ -1,6 +1,6 @@
 
   <header>
-    <div class="button">
+  <div class="button">
   <button type="button" class="btn btn-outline-primar" id="bar"><i class="fa-solid fa-bars"></i></button>
     </div>
     

@@ -1,5 +1,7 @@
 <?php
 use App\Models\Session;
+use SecTheater\Suppors\Hash;
+
     if(is_null(Session::get('UserID')))
     {
          header('Location: /login');
@@ -7,9 +9,9 @@ use App\Models\Session;
 
 ?>
 
-<?php include   base_path()  . 'views/partials/user.php'; ?>
 <div class="User-container">
-    
+    <?php //include   base_path()  . 'views/partials/RoleScreen.php'; ?>
+<?php include   base_path()  . 'views/partials/user.php'; ?>
         <div class="title">
             USER MANAGEMENT
         </div>
@@ -60,4 +62,4 @@ use App\Models\Session;
 
 
 
-<script src="js/user.js"></script>
+<script type="module" src="js/user.js"></script>

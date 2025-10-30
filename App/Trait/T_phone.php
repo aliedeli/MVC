@@ -19,10 +19,10 @@ trait T_phone
     }
     public function UdatePhone()
     {
-        $this->query('update phone set CusID=:CusID , phone=:phone, userID=:userID where CusID=:CusID OR userID=:userID  ');
+        $this->query('UPDATE phone set  phone=:phone where CusID=:CusID OR  userID=:userID  ');
         $this->bind(':userID',$this->UserID ?? NULL);
         $this->bind(':CusID',$this->CusID ?? null);
-        $this->bind(':CusID',$this->phone);
+        $this->bind(':phone',$this->Phone);
         if($this->execute()){
         return true;
              }else{

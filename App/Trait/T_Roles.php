@@ -16,10 +16,24 @@ trait T_Roles
     }
     public function getInset($UserID)
     {
-        $this->query('insert into  UserRoles (UserID,RoleID,sceID) values (:UserID, :RoleID,:scrID)');
+        $this->query('insert into  UserRoles (UserID,RoleID) values (:UserID, :RoleID)');
         $this->bind(':UserID', $UserID);
         $this->bind(':RoleID', $this->Roles);
-         $this->bind(':RoleID', $this->scrID);
+        
+
+            if($this->execute())
+            {
+                return true;
+            }
+            return false;
+  
+    
+    }
+    public function roloUpdate()
+    {
+        $this->query('UPDATE   UserRoles SET  RoleID=:RoleID WHERE  UserID=:UserID');
+        $this->bind(':UserID', $this->UserID);
+        $this->bind(':RoleID', $this->Roles);
 
             if($this->execute())
             {
@@ -36,6 +50,7 @@ trait T_Roles
         
         Arr::JsonData( $rows);
     }
+    
     public function Passwordverification()
     {
       if(isset($_POST['Password']) && isset($_POST['ConfirmPassword']))

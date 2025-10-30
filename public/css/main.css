@@ -802,7 +802,7 @@ table th button, table td button {
 
 header {
   width: 100%;
-  height: 60px;
+  height: 45px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   background-image: var(--primary-color);
@@ -810,9 +810,11 @@ header {
 }
 header .button {
   width: 10%;
-  height: 100%;
+  height: 60%;
   display: flex;
   align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 header nav {
   width: 100%;
@@ -829,9 +831,8 @@ header nav .logo {
   align-items: center;
 }
 header nav .logo .img-logo {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 30px;
+  height: 30px;
 }
 header nav .logo .img-logo img {
   width: 100%;
@@ -859,7 +860,7 @@ header nav .logo .text-name {
 }
 
 body {
-  height: 90vh;
+  height: 92vh;
   background: var(--background--color);
 }
 
@@ -886,9 +887,18 @@ body {
   border-bottom-right-radius: 15px;
   border-top-right-radius: 20px;
   box-shadow: 3px 0 5px 1px rgba(0, 0, 0, 0.25), 3px 0 5px 1px rgba(0, 0, 0, 0.25);
+  transition: width 0.5s ease-in-out;
 }
 .main-container .nav-left.active {
-  width: 8.5%;
+  width: 5%;
+  animation: width 0.5s ease-in-out;
+  z-index: 5;
+}
+.main-container .nav-left.active .userNmae {
+  display: none;
+}
+.main-container .nav-left.active .ul li {
+  position: relative;
 }
 .main-container .nav-left.active .ul li a {
   align-items: center;
@@ -903,7 +913,7 @@ body {
   top: 17px;
   left: 55px;
   color: #000;
-  z-index: 100;
+  z-index: 155;
 }
 .main-container .nav-left.active .ul li a:hover > .text-name::before {
   content: "";
@@ -922,7 +932,7 @@ body {
 }
 .main-container .nav-left .userInfo {
   width: 100%;
-  height: 20%;
+  height: 15%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -931,8 +941,8 @@ body {
   gap: 10px;
 }
 .main-container .nav-left .userInfo .userImg {
-  width: 60px;
-  height: 60px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   overflow: hidden;
 }
@@ -948,10 +958,11 @@ body {
   text-align: center;
   padding: 0.5%;
   font-weight: bold;
+  transition: display 1.5s ease-in-out;
 }
 .main-container .nav-left .ul {
   width: 100%;
-  height: 80%;
+  height: 90%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -994,7 +1005,7 @@ body {
 }
 .main-container .nav-left .out {
   width: 100%;
-  height: 8.5%;
+  height: 10%;
   display: flex;
   justify-content: start;
   align-items: start;
@@ -1026,7 +1037,11 @@ body {
 }
 @media (max-width: 900px) {
   .main-container .nav-left {
+    z-index: 5;
     width: 8.5%;
+  }
+  .main-container .nav-left .ul {
+    z-index: 5;
   }
   .main-container .nav-left .ul li a {
     align-items: center;
@@ -1079,6 +1094,17 @@ body {
   color: rgb(12, 90, 159);
 }
 
+@keyframes width {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .container {
   width: 100%;
   height: 100%;
@@ -1352,6 +1378,14 @@ body {
   border-radius: 5px;
   font: 1em sans-serif bold;
 }
+.box-view form .row .input .select {
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  padding: 0 10px;
+  font-size: 1rem;
+}
 
 .Banner-container {
   width: 100%;
@@ -1498,6 +1532,7 @@ body {
 }
 
 .Add-user-container {
+  position: relative;
   width: 90%;
   height: auto;
 }
@@ -1774,6 +1809,14 @@ body {
 .Edit-user-container form .form-group .row .input .input input:focus-within {
   border: none;
   border-bottom: 1px solid #0066ff;
+}
+
+.Role-table-Scrnne {
+  position: absolute;
+  width: 50%;
+  height: 60%;
+  top: 25px;
+  left: 25%;
 }
 
 .login-container {
@@ -2449,6 +2492,7 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
+  z-index: -1;
 }
 .content-Employees .row {
   justify-content: start;
@@ -2859,6 +2903,7 @@ tbody tr:nth-child(even) {
   flex-direction: column;
   padding: 20px;
   box-sizing: border-box;
+  position: relative;
 }
 .box-settings form {
   width: 50%;
@@ -2907,4 +2952,42 @@ tbody tr:nth-child(even) {
 .box-settings form .row .input select:focus {
   outline: none;
   border-color: #007BFF;
+}
+.box-settings .varify-password {
+  position: absolute;
+  width: 50%;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-image: var(--primary-table-color);
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 10px;
+  gap: 20px;
+  padding: 20px;
+  box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1);
+}
+.box-settings .varify-password .input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.box-settings .varify-password .input input[type=password] {
+  width: 300px;
+  height: 35px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+.box-settings .varify-password .input input[type=password]:focus {
+  outline: none;
+  border-color: #007BFF;
+}
+.box-settings .varify-password .input .icon {
+  font-size: 24px;
+  color: green;
 }/*# sourceMappingURL=main.css.map */

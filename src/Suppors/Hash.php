@@ -21,7 +21,12 @@ class Hash
     {
         return password_verify($password, $hash);
     }
+    public static function Nothash($password)
+    {
+        return $password;
 
+        
+    }
     public static function generateRandomString($length = 10) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);

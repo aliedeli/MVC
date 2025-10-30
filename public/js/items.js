@@ -304,7 +304,7 @@ class items
 
             }
             let data=new FormData()
-                data.append('type','select')
+                data.append('action','select')
             xhr.send(data);
     }).then((data)=>{
         select.innerHTML='';
@@ -590,7 +590,7 @@ class items
             {
                 if(xhr.status == 200 && xhr.readyState == 4 )
                 {
-                   console.log(xhr)
+                 
                   
                     r(JSON.parse(xhr.response))
                 }else{
@@ -626,7 +626,7 @@ class items
     `;
 
         setTimeout(()=>{div.remove()},1000)
-box_banner.parentElement.appendChild(div)
+    box_banner.parentElement.appendChild(div)
 
     }
     delete()

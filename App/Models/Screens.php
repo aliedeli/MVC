@@ -51,6 +51,36 @@ class Screens extends Models
 
         return false;
     }
+    public function getnavsereene()
+    {
+        $scrnnes=[];
+        $this->query('SELECT * FROM Role_Screene WHERE UserID=:UserID');
+        $this->bind(':UserID',$this->UserID);
+        $this->execute();
+        $row=$this->fetchAll();
+          
+            
+
+             foreach($row as $r)
+            {
+                if($r['views'] <= 0)
+                {
+                    continue;
+                }
+
+                if($this->scrnne($r['ScrID'])[0]['name'] != 'Printer')
+                {
+                  array_push($scrnnes,$this->scrnne($r['ScrID'])[0]);
+                }
+                
+            }
+
+            
+            Arr::JsonData($scrnnes);
+        
+        
+
+    }
      public  function getRoleUpdate($UserID,$name)
     {
         $this->query('SELECT * FROM Role_Screene  LEFT JOIN Scrnnes  ON Role_Screene.ScrID=Scrnnes.ScrID WHERE  Scrnnes.scrnne=:name AND Role_Screene.UserID=:UserID  ');
@@ -86,6 +116,9 @@ class Screens extends Models
             if( $this->action == "Role")
             {
                 $this->RoleScreens();
+            }else if( $this->action == "getnavsereene")
+            {
+                $this->getnavsereene();
             }
         }
     }
@@ -93,4 +126,7 @@ class Screens extends Models
 
 }
 
-$scrnnes=new Screens();
+// make class available in the global namespace for consumers that don't import App\Models\Screens
+
+
+$Scrnnes = new Screens();

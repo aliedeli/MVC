@@ -17,7 +17,7 @@ class Route
         
     }
 
-    public static function get($route, $action,$params=[])
+    public static function get($route, $action)
     {
        self::$routes['get'][$route]=$action;
         
@@ -36,20 +36,20 @@ class Route
     {
         $path= $this->request->path();
         $method= $this->request->method();
+        $params = $this->request->params();
         $action =self::$routes[$method][$path] ?? false ;
        
    
 
 
       
-       
-
+      
         if(!array_key_exists($path , self::$routes[$method]))
         {
             View::makeError('404');
         }
        
-      
+
 
         if(!$action)
         {
@@ -67,13 +67,13 @@ class Route
             {
              if(Screens::verification(Session::get('UserID'),$action[1]) || $action[1] == 'login')
           {
-            call_user_func_array([new $action[0],$action[1]], [] );
+            call_user_func_array([new $action[0],$action[1]], [$params] ?? []); 
          }else{
                View::makeError('404');
            }
         }else{
 
-            call_user_func_array([new $action[0],$action[1]], [] );
+            call_user_func_array([new $action[0],$action[1]],  []);
   
            
         }

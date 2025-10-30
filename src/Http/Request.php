@@ -12,7 +12,11 @@ class Request
         $path=$_SERVER['REQUEST_URI'] ?? '/';
 
         return str_contains($path,"?") ? explode('?',$path)[0] : $path ;
-
-
     }
+    public function params()
+    {
+       
+        return $_REQUEST;
+    }
+
 }

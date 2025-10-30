@@ -1,3 +1,4 @@
+import {primaryID,message,FormSubmit,paginationView}from './min.js'
 const fromDate = document.getElementById('addUserForm');
 const inputname = document.getElementById('username');
 const box_User_Add= document.querySelector('.Add-user-container');
@@ -28,31 +29,18 @@ search.addEventListener('input',(e)=>{
 
 fromDate.addEventListener('submit', (e) =>{
     e.preventDefault();
-    let mypriomise =new Promise((resolve, reject) =>{
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', url, true);
-        xhr.onreadystatechange=()=>{
-
-            if(xhr.readyState === 4 && xhr.status === 200){
-            
-                resolve(JSON.parse(xhr.response) );
-            }else{
-               
-            }
-
-        }
-        let Data = new FormData(fromDate);
-            Data.append('type', 'insert');
-        xhr.send(Data);
-
-    })
     
-    mypriomise.then((r) =>{
-       
-        if(r[0]){
+
+    FormSubmit('insert',url,'',fromDate).then((data) =>{
+
+        if(data.success){
+
            document.querySelectorAll('input').forEach(input => input.value = '');
+            message('success-message','create user success  ')
               inputname.focus();
            loadUsers()
+        }else{
+             message('error-message','create user not success   ')
         }
     })
 });
@@ -72,7 +60,7 @@ function GetRoles()
             }
         }
         let FormDat= new FormData();
-        FormDat.append('type', 'Roles');
+        FormDat.append('action', 'Roles');
         xhr.send(FormDat);
     }).then((data)=>{
         Roles.innerHTML=""
@@ -118,31 +106,19 @@ class Role
 
 function  searchUsers(e)
 {
- mypriomise = new Promise((resolve, reject) =>{
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', url, true);
-        xhr.onreadystatechange = () =>{
-           
-            if(xhr.readyState === 4 && xhr.status === 200){
-           
-                 resolve(JSON.parse(xhr.response));
-            }else{
-                // reject('error');
-            }
-        }
-        let FormDat= new FormData();
-        FormDat.append('type', 'search');
-        FormDat.append('type', 'select');
-        xhr.send(FormDat);
-    }).then((response) =>{
-      
 
-        let paginationUser=new paginationViewUser()
+    
+    FormSubmit('search',url,[{search:e}],'').then((response) =>{
+
+      console.log(response)
+    let paginationUser= new paginationView()
+        paginationUser.nameClass= new User()
         paginationUser.array=response
         paginationUser.body=document.getElementById('user-table-body');
         paginationUser.hasNext=document.getElementById('next')
         paginationUser.hasPrev=document.getElementById('back')
         paginationUser.itemsPage=12
+        paginationUser.pageinfo=document.getElementById('page-info-user')
         paginationUser.displayPage()
         paginationUser.button()
     })
@@ -151,109 +127,44 @@ function  searchUsers(e)
 
 function  loadUsers(){
 
-     mypriomise = new Promise((resolve, reject) =>{
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', url, true);
-        xhr.onreadystatechange = () =>{
-       
-            if(xhr.readyState === 4 && xhr.status === 200){
-           
-                 resolve(JSON.parse(xhr.response));
-            }else{
-                // reject('error');
-            }
-        }
-        let FormDat= new FormData();
-        FormDat.append('type', 'select');
-        xhr.send(FormDat);
-    }).then((response) =>{
+
+    FormSubmit('select',url,'','').then((response) =>{
       
 
-        let paginationUser=new paginationViewUser()
+    let paginationUser= new paginationView()
+        paginationUser.nameClass= new User()
         paginationUser.array=response
         paginationUser.body=document.getElementById('user-table-body');
         paginationUser.hasNext=document.getElementById('next')
         paginationUser.hasPrev=document.getElementById('back')
         paginationUser.itemsPage=12
+        paginationUser.pageinfo=document.getElementById('page-info-user')
         paginationUser.displayPage()
         paginationUser.button()
     })
 }
-loadUsers();
-
-
-class paginationViewUser
-{
-    constructor()
-    {
-        this.start=0
-        this.end=0
-        this.currentPage=1
-        this.totalPage=0
-        this.hasNext=null
-        this.hasPrev=null
-        this.array=[]
-        this.itemsPage=10
-        this.nameClass='';
-        this.body=null;
-     
-        
-    }
-    displayPage()
-    {
-         this.totalPage=  Math.ceil(this.array.length / this.itemsPage)
-        this.nameClass= this.nameClass || 'Sale'
-        this.start=(this.currentPage -1) * this.itemsPage
-        this.end=this.start + this.itemsPage
-        this.view()
-    }
-    button()
-    {
-                this.hasNext.addEventListener('click',()=>{
-            if(this.hasNext && this.currentPage < this.totalPage)
-            {
-                this.currentPage++  
-                this.start=(this.currentPage -1) * this.itemsPage
-                this.end=this.start + this.itemsPage
-                this.view()
-            }
-          
-          
-
-            })
-               this.hasPrev.addEventListener('click',()=>{
-              
-            if(this.hasPrev && this.currentPage > 1)
-            {
-                this.currentPage--  
-                this.start=(this.currentPage -1) * this.itemsPage
-                this.end=this.start + this.itemsPage
-                this.view()
-            }})
-
-    }
-    view()
-    {
-        document.getElementById('page-info-user').textContent=`Page ${this.currentPage}  of ${this.totalPage}`
-         this.body.innerHTML = '';
-       this.array.slice(this.start,this.end).forEach((item,index )=>{
-       
-            let n=   new User(item,++index)
-            n.innerHTML()
-       })
-     
-    }
 
 
 
-
-
-}
 
 
 class User{
-    constructor(data , index){
+    constructor(){
     
+        this.ID ;
+        this.Name;
+        this.Role;
+        this.TypeID;
+        this.Email ;
+        this.Phone ;
+        this.Password;
+        this.Address ;
+        this.Status ;
+        this.index ;
+        
+    }
+    input(data,index)
+    {
         this.ID = data.UserID;
         this.Name = data.UserName;
         this.Role= data.RoleName;
@@ -264,7 +175,6 @@ class User{
         this.Address = data.Address;
         this.Status = data.Status;
         this.index = index;
-        
     }
     innerHTML(){
         let tr = document.createElement('tr');
@@ -344,7 +254,7 @@ class User{
             value2.className='input'
         let values2=document.createElement('input')
             values2.type='password'
-            values2.name='password'
+            values2.name='new-password'
             values2.value=this.Password
 
         let input3=document.createElement('div')
@@ -407,36 +317,41 @@ class User{
             values6.name='role'
 
 
-
-            mypriomise = new Promise((resolve, reject) =>{
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', url, true);
-        xhr.onreadystatechange = () =>{
-           
-            if(xhr.readyState === 4 && xhr.status === 200){
-             
-                 resolve(JSON.parse(xhr.response));
-            }else{
-                // reject('error');
-            }
-        }
-        let FormDat= new FormData();
-        FormDat.append('type', 'Roles');
-        xhr.send(FormDat);
-    }).then((data)=>{
-        values6.innerHTML=""
-        data.forEach(e=>{
-              let option = document.createElement('option')
-              if(this.Role === e.RoleName)
-              {
-                option.setAttribute('selected',true)
-              }
-                option.value=e.RoleID
-                option.textContent=e.RoleName
-                values6.appendChild(option)
+            FormSubmit('Roles',url,'','').then((data)=>{
+                values6.innerHTML=""
+                data.forEach(e=>{
+                    let option = document.createElement('option')
+                    if(this.Role === e.RoleName)
+                    {
+                        option.setAttribute('selected',true)
+                    }
+                        option.value=e.RoleID
+                        option.textContent=e.RoleName
+                        values6.appendChild(option)
 
         })
     })
+
+       let input7=document.createElement('div')
+            input7.className='input'
+        let icon7=document.createElement('div')
+            icon7.className='icon'
+            icon7.innerHTML='<i class="fa-solid fa-user-shield"></i>'
+        let textName7=document.createElement('div')
+            textName7 .className='text-name'
+            textName7.textContent='Status'
+        let value7= document.createElement('div')
+            value7.className='input'
+        let values7=document.createElement('select')
+            values7.name='Status'
+         let option1 = document.createElement('option')
+            option1.value='Active'
+            option1.textContent='Active'
+            option1.setAttribute('selected',true)
+          let option2 = document.createElement('option')
+            option2.value='not'
+            option2.textContent='not'
+
 
 input1.appendChild(icon1)
 input1.appendChild(textName1)
@@ -448,6 +363,8 @@ row1.appendChild(input1)
 
 
 
+values7.appendChild( option1)
+values7.appendChild( option2)
 let row2=document.createElement('div')
 row2.className='row'
 let row3=document.createElement('div')
@@ -458,6 +375,8 @@ let row5=document.createElement('div')
 row5.className='row'
 let row6=document.createElement('div')
 row6.className='row'
+let row7=document.createElement('div')
+    row7.className='row'
 let button=document.createElement('div')
 button.className='button'
 
@@ -508,6 +427,12 @@ input6.appendChild(values6)
 value6.appendChild(input6)
 row6.appendChild(input6)
 
+input7.appendChild(icon7)
+input7.appendChild(textName7)
+input7.appendChild(values7)
+value7.appendChild(input7)
+row7.appendChild(input7)
+
 button.append(btnSav,btnCancel)
 
 formGroup.appendChild(row1)
@@ -516,6 +441,7 @@ formGroup.appendChild(row3)
 formGroup.appendChild(row4)
 formGroup.appendChild(row5)
 formGroup.appendChild(row6)
+formGroup.appendChild(row7)
 formGroup.appendChild(button)
 
 
@@ -527,37 +453,70 @@ divUser.appendChild(FormUser)
  box_User_Add.parentElement.append(divUser)
         
 
-    FormUser.addEventListener('submit',()=>{
-         form.preventDefault() 
-         this.fetchData('edit').then((data) =>{
-            if(data.success){
-               
-                loadUsers();
-            }
+    FormUser.addEventListener('submit',(e)=>{
+         e.preventDefault() 
+        FormSubmit('update',url,[{UserID:this.ID}],FormUser).then(data=>{
+            console.log(data)
         })
-       
     })
 
 
     }
-    fetchData(type ,form){
-        
-        return new Promise((resolve, reject) =>{
-            let xhr = new XMLHttpRequest();
-            xhr.open('POST', url, true);
-            xhr.onreadystatechange=()=>{
-                if(xhr.readyState === 4 && xhr.status === 200){
-                    resolve(JSON.parse(xhr.response) );
-                }else{
-                     
-                }
-            }
-            let Data = new FormData(form || null);
-                Data.append('type', type);
-                Data.append('UserID', this.ID);
-            xhr.send(Data);
-        });
+    Aesix()
+    {
+
     }
 
     
 }
+
+class RoleScreene
+{
+    constructor()
+    {
+        this.UserID;
+        this.ScrID;
+        this.name;
+        this.view;
+        this.edit;
+        this.delete;
+        this.index;
+    }
+    input(data,index)
+    {
+        this.UserID=data.UserID;
+        this.ScrID=data.ScrID;
+        this.view=data.views;
+        this.edit=data.Edit;
+        this.delete=data.dele
+        this.index=index;
+    }
+    innerHTML()
+    {
+        let tr=document.createElement('tr')
+        let ID=document.createElement('td')
+        let name=document.createElement('td')
+        let view=document.createElement('td')
+        let edit=document.createElement('td')
+        let dele=document.createElement('td')
+
+        let btnview=document.createElement('button')
+            btnview.className='btn btn-primary'
+            btnview.type='button'
+            btnview.innerHTML='<i class="fa-solid fa-eye"></i>'
+        let btnEdit=document.createElement('button')
+            btnEdit.className='btn btn-primary'
+            btnEdit.type='button'
+            btnEdit.innerHTML=' <i class="fa-solid fa-pen-to-square"></i>'
+        let btnDele=document.createElement('button')
+            btnDele.className='btn btn-danger'
+            btnDele.type='button'
+            btnDele.innerHTML=' <i class="fa-solid fa-trash"></i>'
+
+
+
+    }
+
+
+}
+loadUsers();

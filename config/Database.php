@@ -17,11 +17,11 @@ class Database{
     public function __construct()
     {
    
-        $this->host="127.0.0.1";
-        $this->prot="1433";
-        $this->user='sa';
-        $this->pwd='123';
-        $this->dbName="Stor";
+        $this->host=env('DB_HOST','127.0.0.1');
+        $this->prot=env('DB_PORT','1433');
+        $this->user=env('DB_USER','sa');
+        $this->pwd=env('DB_PASSWORD','123');
+        $this->dbName=env('DB_NAME','Stor');
 
  try{
 

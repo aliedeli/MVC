@@ -18,6 +18,37 @@ use App\Models\Session;
         </div>
         <div class="ul">
             <ul>
+                <li>
+                    <a href="#">
+                        <div class="icon">
+                            <i class="fa-solid fa-gauge"></i>
+                        </div>
+                        <div class="text-name">
+                            paeg
+                        </div>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="?page=dashboard">
+                                <div class="icon">
+                                    <i class="fa-solid fa-house"></i>
+                                </div>
+                                <div class="text-name">
+                                    Dashboard
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="?page=profile">
+                                <div class="icon">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+                                <div class="text-name">
+                                    Profile
+                                </div>
+                            </a>
+                    </ul>
+                </li>
              
                 
             </ul>
@@ -25,7 +56,7 @@ use App\Models\Session;
         <div class="out">
             <a href="?out">
     
-                           <div class="icon">
+          <div class="icon">
                 <i class="fa-solid fa-right-from-bracket"></i>
                 </div>
                     <div class="text-name">

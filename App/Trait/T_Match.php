@@ -4,7 +4,7 @@ trait T_Match
 {
     public function Mphone($phone)
     {
-        $pattern = "/^01[0-2,5]{1}[0-9]{10}$/";
+        $pattern = "/^01[0-2,5]{1}[0-9]{11}$/";
         if (preg_match($pattern, $phone)) {
             return true;
         } else {

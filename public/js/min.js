@@ -2,23 +2,37 @@ let navleft = document.querySelector('.nav-left')
 let btnNavbar =document.getElementById('bar')
 let maincontainer=document.querySelector('.main-container')
 let footer=document.createElement('div');
+if( localStorage.getItem('nav'))
+{
+     navleft.classList.add('active')
+}
+window.onload=()=>
+{
+    navleft.styles=`
+    animation: width 5s ease-in-out;
+    `
+}
 
-// window.onload=()=>{
+btnNavbar.addEventListener('click',_=>{
+   
+   
+     
+    if(navleft.classList.contains('active'))
+    {
+         localStorage.removeItem('nav')
+    }else{
+         localStorage.setItem('nav','active')
+    }
 
-
-
-// btnNavbar.addEventListener('click',_=>{navleft.classList.toggle('active')})
-
-
-
-
-
-// }
-btnNavbar.addEventListener('click',_=>{navleft.classList.toggle('active')})
-FormSubmit('Role', '/scrnnes', '', '').then((data) => {
+    navleft.classList.toggle('active')
+})
+FormSubmit('getnavsereene', '/scrnnes', '', '').then((data) => {
   navleft.querySelector('ul').innerHTML='';
+  
    data.forEach(e=>{
-        let html=`
+
+   
+      let html=`
          <li>
          <a href="${e.href}">
                       <div class="icon">
@@ -30,11 +44,10 @@ FormSubmit('Role', '/scrnnes', '', '').then((data) => {
                  
                  </a>
                 </li>`
-                if(e.views > 0 && e.name != 'Printer')
-                {
+             
                     navleft.querySelector('ul').innerHTML+=html;
 
-                }
+                
              
                 
    })
@@ -57,6 +70,7 @@ export function FormSubmit(action,url,data,form){
             xhr.open('POST',url,true);
       
         xhr.onreadystatechange=()=>{
+           
             if(xhr.readyState===4 && xhr.status===200){
              
                 resolve(JSON.parse(xhr.response));
@@ -158,4 +172,16 @@ export class paginationView
 
 
 }
+export function   message (classname,m)
+    {
+    let div=document.createElement('div')
+        div.className=classname;
+        div.innerHTML=`
+    <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+             ${m}
+    `;
 
+        setTimeout(()=>{div.remove()},1000)
+    footer.parentElement.appendChild(div)
+
+    }
