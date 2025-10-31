@@ -77,7 +77,7 @@ use App\Models\Session;
  <script>
   let arrInfo=[]
   let infos= document.querySelectorAll('[data-table]');
-   window.onload=function(){
+   window.addEventListener('load',()=>{
 
    const ctx = document.getElementById('myChart');
         infos.forEach(e=>{
@@ -104,6 +104,6 @@ use App\Models\Session;
   });
 
       
-   }
+   })
 
 </script>

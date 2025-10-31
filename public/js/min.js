@@ -161,7 +161,7 @@ export class paginationView
        this.array.slice(this.start,this.end).forEach((item,index )=>{
        
             let n= this.nameClass
-                n.input(item,++index)
+            n.input(item,++index)
             n.innerHTML()
        })
      

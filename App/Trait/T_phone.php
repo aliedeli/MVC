@@ -31,5 +31,19 @@ trait T_phone
 
 
     }
+    public function where_phone()
+    {
+        $this->query("SELECT * FROM phone WHERE CusID=:CusID OR userID=:userID ");
+        $this->bind(':CusID',$this->CusID ?? null);
+        $this->bind(':userID',$this->UserID ?? NULL);
+         $this->execute();
+        $row = $this->fetchAll();
+         if(count($row) > 0){
+            return true;
+            }else{
+            return false;
+            }
+        
+    }
     
 }

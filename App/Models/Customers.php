@@ -16,7 +16,7 @@ class Customers extends Models
     private $name;
     private $address;
     private $email;
-    private $phone;
+    private $Phone;
     private $action;
 
     public function __construct()
@@ -25,7 +25,7 @@ class Customers extends Models
         $this->name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS) ?? null;
         $this->address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_SPECIAL_CHARS) ?? null;
         $this->email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL) ?? null;
-        $this->phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS) ?? null;
+        $this->Phone = filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_SPECIAL_CHARS) ?? null;
         $this->action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_SPECIAL_CHARS) ?? null;
         $this->require();
         
@@ -40,7 +40,7 @@ class Customers extends Models
        if($this->execute()){
             $this->CusID=$this->lastID();
         Arr::Json(['success'=>true]);
-            if($this->Mphone($this->phone))
+            if($this->Mphone($this->Phone))
             {
             
                if( $this->insertPhone()){
@@ -63,19 +63,31 @@ class Customers extends Models
         $this->bind(':address', $this->address);
         
        if($this->execute()){
-       if($this->Mphone($this->phone))
+            if($this->where_phone())
             {
-            
+
+                // Update existing phone
                if( $this->UdatePhone()){
                 Arr::Json(['success'=>true ,'phone'=>true] );
                 }else{
                     Arr::Json(['success'=>true,'phone'=>false]);
                 }
 
+            }else{
+                // Insert new phone
+              
+                   if( $this->insertPhone()){
+                    Arr::Json(['success'=>true ,'phone'=>true] );
+                    }else{
+                        Arr::Json(['success'=>true,'phone'=>false]);
+                    }
+    
+                
             }
        }else{
         Arr::Json(['success'=>false]);
-       }
+       
+    }
     }
     private function select()
     {
@@ -117,6 +129,7 @@ class Customers extends Models
                
                 $this->insert();
             } elseif($this->action == 'update') {
+      
                 $this->update();
             } elseif($this->action == 'select') {
                 $this->select();

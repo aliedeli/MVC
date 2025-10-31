@@ -106,6 +106,7 @@ class Customer{
         this.QtyOrder = data.QtyOrder || 0  ;
         this.type = data.type 
         this.index=index
+        
     }
     innerHTML(){
         let tr = document.createElement('tr');
@@ -130,14 +131,15 @@ class Customer{
         tableCustomer.appendChild(tr);
       
         btnDelete.addEventListener('click',()=>{
-            this.delete();
+            this.delete(this);
         });
         btnEdit.addEventListener('click',()=>{
-            this.edit();
+            this.edit(this);
         }); 
 
     }
     delete(){
+
         if(confirm('Are you sure to delete this customer?')){
             let data = [{ CusID: this.id }];
             FormSubmit('delete', Url, data, '').then((response) => {
@@ -151,8 +153,9 @@ class Customer{
         }
     }
     edit(){
+        console.log(this)
         let div=document.createElement('div');
-            div.className='add-cutomer active '
+            div.className='edit-cutomer '
         let form=document.createElement('form')
             form.innerHTML=`
              <div class="form-group">
@@ -216,7 +219,7 @@ class Customer{
         
             <div class="button">
                 <button type="button" class='btn btn-primar Close'> Close</button>
-                <button type="submit" class="btn btn-primar">Add Customer</button>
+                <button type="submit" class="btn btn-primar">Save Customer</button>
             </div>
         
         </div>

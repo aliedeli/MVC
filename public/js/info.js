@@ -70,9 +70,9 @@ function notification (key,message,index)
         div.style.top=index + 'px'
     board.appendChild(div)
     div.style.animation=' all 5s  ease-in-out '
-    //   setTimeout(() => {
-    //   div.remove()
+      setTimeout(() => {
+      div.remove()
      
-    // },( 30 * index));
+    },( 30 * index));
 }
 
